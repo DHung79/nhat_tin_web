@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nhat_tin_web/routers/route_names.dart';
+import 'package:nhat_tin_web/utils/screen_util.dart';
 import '../../../main.dart';
 import '../../../theme/app_theme.dart';
 
@@ -15,6 +16,31 @@ class TopNavigationBar extends StatefulWidget {
 class _TopNavigationBarState extends State<TopNavigationBar> {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
+    final listSearch = [
+      ScreenUtil.t(I18nKey.introduce),
+      '${ScreenUtil.t(I18nKey.introduce)!} > ${ScreenUtil.t(I18nKey.contact)!}',
+      '${ScreenUtil.t(I18nKey.introduce)!} > ${ScreenUtil.t(I18nKey.environment)!}',
+      ScreenUtil.t(I18nKey.versions),
+      'B1 ver 1.0.0',
+      'B1 ver 1.0.1',
+      ScreenUtil.t(I18nKey.verification),
+      '${ScreenUtil.t(I18nKey.verification)!} > ${ScreenUtil.t(I18nKey.personalAccessTokens)!}',
+      '${ScreenUtil.t(I18nKey.verification)!} > ${ScreenUtil.t(I18nKey.passwordGrantTokens)!}',
+      ScreenUtil.t(I18nKey.area),
+      '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.province)!}',
+      '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.district)!}',
+      '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.wards)!}',
+      ScreenUtil.t(I18nKey.order),
+      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.printBillOfLading)!}',
+      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createBillOfLading)!}',
+      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createBillOfLadingVer2)!}',
+      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.trackingBillOfLading)!}',
+      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.pricingShippingCost)!}',
+      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.cancelBillOfLading)!}',
+      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.sendRequest)!}',
+      'Webhooks',
+    ];
     return SizedBox(
       height: 72,
       child: Row(
@@ -33,7 +59,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
         Text(
           'widget.subTitle',
           style: AppTextTheme.mediumHeaderTitle(
-            AppColor.text1,
+            AppColor.black,
           ),
         ),
         const SizedBox(
@@ -42,7 +68,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
         Text(
           'widget.routeName',
           style: AppTextTheme.normalText(
-            AppColor.text7,
+            AppColor.black,
           ),
         ),
       ],
@@ -59,7 +85,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
               padding: const EdgeInsets.all(8.0),
               child: Icon(
                 Icons.cabin,
-                color: AppColor.text7,
+                color: AppColor.black,
                 size: 24,
               ),
             ),
@@ -73,7 +99,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
               padding: const EdgeInsets.all(8.0),
               child: Icon(
                 Icons.notifications,
-                color: AppColor.text7,
+                color: AppColor.black,
               ),
             ),
             onTap: () {},
@@ -106,7 +132,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
             Text(
               'widget.admin.name',
               style: AppTextTheme.normalText(
-                AppColor.text1,
+                AppColor.black,
               ),
             ),
             const SizedBox(
@@ -131,7 +157,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
                     padding: const EdgeInsets.only(left: 16),
                     child: Text(
                       item.title,
-                      style: AppTextTheme.normalText(AppColor.text1),
+                      style: AppTextTheme.normalText(AppColor.black),
                     ),
                   ),
                 ],

@@ -37,7 +37,7 @@ class _PageTemplateState extends State<PageTemplate> {
 
   Widget _buildContent() {
     return Container(
-      color: AppColor.shade1,
+      color: AppColor.white,
       child: Column(
         children: [
           const TopNavigationBar(),

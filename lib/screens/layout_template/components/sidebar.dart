@@ -77,7 +77,7 @@ class SideBarState extends State<SideBar> {
               Icon(
                 icon,
                 size: 24,
-                color: active ? AppColor.shade6 : AppColor.text7,
+                color: active ? AppColor.blue1 : AppColor.blue2,
               ),
               if (!isMini)
                 Padding(
@@ -85,7 +85,7 @@ class SideBarState extends State<SideBar> {
                   child: Text(
                     title,
                     style: AppTextTheme.normalText(
-                      active ? AppColor.shade6 : AppColor.text7,
+                      active ? AppColor.blue1 : AppColor.blue2,
                     ),
                   ),
                 )
