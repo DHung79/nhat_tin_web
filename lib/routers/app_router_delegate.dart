@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nhat_tin_web/screens/introduction_screen/introduction_screen.dart';
 import '../home_screen.dart';
 import '../home_screen_02.dart';
 import '../screens/unknown_screen/unknown_screen.dart';
@@ -12,6 +13,7 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
   @override
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   final ValueNotifier<NavigatorType?> _tagNotifier = ValueNotifier(null);
+  
   AppRouterDelegate() {
     Listenable.merge([
       _tagNotifier,
@@ -66,12 +68,12 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
       if (route.length > introductionRoute.length) {
         final tag = route.substring(introductionRoute.length + 1, route.length);
         if (getTagsOfRoute(introductionRoute).contains(tag)) {
-          return HomeScreen2(tagNotifier: _tagNotifier);
+          return IntroductionScreen(tagNotifier: _tagNotifier);
         } else {
           return const UnknownScreen();
         }
       }
-      return HomeScreen2(tagNotifier: _tagNotifier);
+      return IntroductionScreen(tagNotifier: _tagNotifier);
     }
 
     if (route.startsWith(areaRoute)) {

@@ -15,7 +15,7 @@ class HomeScreen2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tags = ['1', '2', '3'];
+    final tags = ['1'];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -86,15 +86,7 @@ class HomeScreen2 extends StatelessWidget {
                     tagNotifier: tagNotifier,
                     tagContent: const [
                       Tag2(
-                        title: '1',
-                        color: Colors.amber,
-                      ),
-                      Tag2(
-                        title: '2',
-                        color: Colors.amber,
-                      ),
-                      Tag2(
-                        title: '3',
+                        title: 'Testing color',
                         color: Colors.amber,
                       ),
                     ],

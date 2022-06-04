@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
+import '../../routers/navigator_type.dart';
 import '../../theme/app_theme.dart';
 import 'components/top_navigation_bar.dart';
 import 'components/sidebar.dart';
@@ -7,11 +9,15 @@ import 'components/sidebar.dart';
 class PageTemplate extends StatefulWidget {
   final Widget child;
   final String route;
+  final Widget? wellcome;
+  final ValueListenable<NavigatorType?> tagNotifier;
 
   const PageTemplate({
     Key? key,
     required this.child,
     required this.route,
+    this.wellcome,
+    required this.tagNotifier,
   }) : super(key: key);
 
   @override
@@ -36,22 +42,26 @@ class _PageTemplateState extends State<PageTemplate> {
   }
 
   Widget _buildContent() {
+    final color = AppColor.blue1;
     return Container(
       color: AppColor.white,
       child: Column(
         children: [
-          const TopNavigationBar(),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SideBar(
-                  route: widget.route,
+          TopNavigationBar(color: color),
+          widget.wellcome ??
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SideBar(
+                      color: color,
+                      route: widget.route,
+                      tagNotifier: widget.tagNotifier,
+                    ),
+                    Expanded(child: widget.child),
+                  ],
                 ),
-                Expanded(child: widget.child),
-              ],
-            ),
-          ),
+              ),
         ],
       ),
     );

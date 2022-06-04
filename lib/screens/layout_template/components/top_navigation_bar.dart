@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nhat_tin_web/routers/route_names.dart';
-import 'package:nhat_tin_web/utils/screen_util.dart';
 import '../../../main.dart';
 import '../../../theme/app_theme.dart';
 
 class TopNavigationBar extends StatefulWidget {
+  final Color? color;
   const TopNavigationBar({
     Key? key,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -41,7 +42,16 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
       '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.sendRequest)!}',
       'Webhooks',
     ];
-    return SizedBox(
+    return Container(
+      decoration: BoxDecoration(
+        color: widget.color,
+        border: Border(
+          bottom: BorderSide(
+            color: AppColor.blue1.withOpacity(0.3),
+            width: 1,
+          ),
+        ),
+      ),
       height: 72,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,19 +66,13 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
   _appbarTitle() {
     return Row(
       children: [
-        Text(
-          'widget.subTitle',
-          style: AppTextTheme.mediumHeaderTitle(
-            AppColor.black,
-          ),
-        ),
-        const SizedBox(
-          width: 24,
-        ),
-        Text(
-          'widget.routeName',
-          style: AppTextTheme.normalText(
-            AppColor.black,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            'Nhất Tín Express API Service',
+            style: AppTextTheme.headerTitle(
+              AppColor.yellow1,
+            ),
           ),
         ),
       ],
@@ -138,10 +142,6 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
             const SizedBox(
               width: 16,
             ),
-            const CircleAvatar(
-              radius: 12,
-              backgroundImage: NetworkImage('assets/images/logo.png'),
-            )
           ],
         ),
       ),

@@ -28,8 +28,8 @@ navigateTo(String route) async {
   locator<AppRouterDelegate>().navigateTo(route);
 }
 
-getTagsOfRoute(String route) async {
-  locator<AppRouterDelegate>().getTagsOfRoute(route);
+List<String> getTagsOfRoute(String route) {
+  return locator<AppRouterDelegate>().getTagsOfRoute(route);
 }
 
 final List<Locale> supportedLocales = <Locale>[
