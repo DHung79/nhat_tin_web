@@ -4,10 +4,12 @@ import '../../../main.dart';
 import '../../../theme/app_theme.dart';
 
 class TopNavigationBar extends StatefulWidget {
+  final Widget searchField;
   final Color? color;
   const TopNavigationBar({
     Key? key,
     this.color,
+    required this.searchField,
   }) : super(key: key);
 
   @override
@@ -17,31 +19,6 @@ class TopNavigationBar extends StatefulWidget {
 class _TopNavigationBarState extends State<TopNavigationBar> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
-    final listSearch = [
-      ScreenUtil.t(I18nKey.introduce),
-      '${ScreenUtil.t(I18nKey.introduce)!} > ${ScreenUtil.t(I18nKey.contact)!}',
-      '${ScreenUtil.t(I18nKey.introduce)!} > ${ScreenUtil.t(I18nKey.environment)!}',
-      ScreenUtil.t(I18nKey.versions),
-      'B1 ver 1.0.0',
-      'B1 ver 1.0.1',
-      ScreenUtil.t(I18nKey.verification),
-      '${ScreenUtil.t(I18nKey.verification)!} > ${ScreenUtil.t(I18nKey.personalAccessTokens)!}',
-      '${ScreenUtil.t(I18nKey.verification)!} > ${ScreenUtil.t(I18nKey.passwordGrantTokens)!}',
-      ScreenUtil.t(I18nKey.area),
-      '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.province)!}',
-      '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.district)!}',
-      '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.wards)!}',
-      ScreenUtil.t(I18nKey.order),
-      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.printBillOfLading)!}',
-      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createBillOfLading)!}',
-      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createBillOfLadingVer2)!}',
-      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.trackingBillOfLading)!}',
-      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.pricingShippingCost)!}',
-      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.cancelBillOfLading)!}',
-      '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.sendRequest)!}',
-      'Webhooks',
-    ];
     return Container(
       decoration: BoxDecoration(
         color: widget.color,
@@ -82,20 +59,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
   _actions() {
     return Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.cabin,
-                color: AppColor.black,
-                size: 24,
-              ),
-            ),
-            onTap: () {},
-          ),
-        ),
+        widget.searchField,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
           child: InkWell(
