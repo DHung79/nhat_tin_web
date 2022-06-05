@@ -9,6 +9,7 @@ class WellComeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return LayoutBuilder(builder: (context, size) {
       return PageTemplate(
         route: '',
@@ -40,7 +41,7 @@ class WellComeScreen extends StatelessWidget {
                   child: AppButtonTheme.fillRounded(
                     color: AppColor.white,
                     constraints:
-                        const BoxConstraints(maxWidth: 180, minHeight: 60),
+                        const BoxConstraints(maxWidth: 200, minHeight: 60),
                     borderRadius: BorderRadius.circular(4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +50,7 @@ class WellComeScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 8),
                           child: Text(
-                            'Bắt Đầu',
+                            ScreenUtil.t(I18nKey.getStarted)!,
                             style: AppTextTheme.bigText(AppColor.blue1),
                           ),
                         ),

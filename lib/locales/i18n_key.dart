@@ -24,6 +24,7 @@ class I18nKey {
   static const guide = 'guide';
   static const search = 'search';
   static const noData = 'noData';
+  static const getStarted = 'getStarted';
 //introducation screen
   static const introWeb = 'introWeb';
   static const connectorInformation = 'connectorInformation';

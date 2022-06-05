@@ -80,7 +80,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: AppButtonTheme.fillRounded(
             color: AppColor.white,
-            constraints: const BoxConstraints(minHeight: 44),
+            constraints: const BoxConstraints(minHeight: 44, minWidth: 130),
             borderRadius: BorderRadius.circular(4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -175,9 +175,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
         }).toList();
       },
       onSelected: (LanguageItem item) {
-        App.of(context)!.setLocale(
-          supportedLocales.firstWhere((e) => e == item.supportedLocale),
-        );
+        App.of(context)!.setLocale(item.supportedLocale);
       },
     );
   }

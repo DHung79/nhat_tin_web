@@ -38,5 +38,6 @@
   "statusId": "Mã trạng thái",
   "statusName": "Tên trạng thái",
   "description": "Mô tả",
+  "getStarted": "Bắt đầu",
   "": ""
 }
