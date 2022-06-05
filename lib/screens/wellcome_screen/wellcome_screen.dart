@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/main.dart';
-import 'package:nhat_tin_web/routers/route_names.dart';
+import '/main.dart';
+import '/routers/route_names.dart';
 import '../../theme/app_theme.dart';
 import '../layout_template/content_screen.dart';
 

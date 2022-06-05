@@ -30,6 +30,7 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   final orderPositionsListener = ItemPositionsListener.create();
+  final tags = getTagsOfRoute(orderRoute);
   double offset = 0;
   final _tag1Key = GlobalKey();
   final _tag2Key = GlobalKey();
@@ -48,41 +49,48 @@ class _OrderScreenState extends State<OrderScreen> {
   late Size tag7Size;
   late Size viewSize;
 
-  late List<double> tagSize = [];
   getSizeAndPosition() {
-    RenderBox? tag1Box =
-        _tag1Key.currentContext?.findRenderObject() as RenderBox;
-    RenderBox? tag2Box =
-        _tag2Key.currentContext?.findRenderObject() as RenderBox;
-    RenderBox? tag3Box =
-        _tag3Key.currentContext?.findRenderObject() as RenderBox;
-    RenderBox? tag4Box =
-        _tag4Key.currentContext?.findRenderObject() as RenderBox;
-    RenderBox? tag5Box =
-        _tag5Key.currentContext?.findRenderObject() as RenderBox;
-    RenderBox? tag6Box =
-        _tag6Key.currentContext?.findRenderObject() as RenderBox;
-    RenderBox? tag7Box =
-        _tag7Key.currentContext?.findRenderObject() as RenderBox;
+    if (_tag1Key.currentContext != null) {
+      RenderBox? tag1Box =
+          _tag1Key.currentContext?.findRenderObject() as RenderBox;
+      tag1Size = tag1Box.size;
+    }
+    if (_tag2Key.currentContext != null) {
+      RenderBox? tag2Box =
+          _tag2Key.currentContext?.findRenderObject() as RenderBox;
+      tag2Size = tag2Box.size;
+    }
+    if (_tag3Key.currentContext != null) {
+      RenderBox? tag3Box =
+          _tag3Key.currentContext?.findRenderObject() as RenderBox;
+      tag1Size = tag3Box.size;
+    }
+    if (_tag4Key.currentContext != null) {
+      RenderBox? tag4Box =
+          _tag4Key.currentContext?.findRenderObject() as RenderBox;
+      tag4Size = tag4Box.size;
+    }
+    if (_tag5Key.currentContext != null) {
+      RenderBox? tag5Box =
+          _tag5Key.currentContext?.findRenderObject() as RenderBox;
+      tag5Size = tag5Box.size;
+    }
+    if (_tag6Key.currentContext != null) {
+      RenderBox? tag6Box =
+          _tag6Key.currentContext?.findRenderObject() as RenderBox;
+      tag6Size = tag6Box.size;
+    }
+    if (_tag7Key.currentContext != null) {
+      RenderBox? tag7Box =
+          _tag7Key.currentContext?.findRenderObject() as RenderBox;
+      tag7Size = tag7Box.size;
+    }
+
     RenderBox? viewBox =
         _viewKey.currentContext?.findRenderObject() as RenderBox;
-    tag1Size = tag1Box.size;
-    tag2Size = tag2Box.size;
-    tag3Size = tag3Box.size;
-    tag4Size = tag4Box.size;
-    tag5Size = tag5Box.size;
-    tag6Size = tag6Box.size;
-    tag7Size = tag7Box.size;
+
     viewSize = viewBox.size;
-    tagSize = [
-      tag1Size.height,
-      tag2Size.height,
-      tag3Size.height,
-      tag4Size.height,
-      tag5Size.height,
-      tag6Size.height,
-      tag7Size.height,
-    ];
+
     setState(() {});
   }
 
@@ -90,22 +98,13 @@ class _OrderScreenState extends State<OrderScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition());
     orderPositionsListener.itemPositions.addListener(() {
-      final tags = getTagsOfRoute(orderRoute);
       final currentTagFirst = orderPositionsListener.itemPositions.value.first;
       final currentTagLast = orderPositionsListener.itemPositions.value.last;
-
       if (offset == currentTagFirst.itemLeadingEdge) {
         if (widget.tagNotifier.value != null) {
           final tagIndex = tags.indexOf(widget.tagNotifier.value!.tag);
           if (tagIndex != currentTagFirst.index) {
-            if (tagSize[tagIndex] > viewSize.height) {
-              jumpTo(tagIndex, controller: orderScrollController);
-            } else {
-              orderScrollController.scrollTo(
-                index: tagIndex,
-                duration: const Duration(milliseconds: 150),
-              );
-            }
+            jumpTo(tagIndex, controller: orderScrollController);
           }
         } else {
           if (currentTagFirst.index != 0) {
@@ -120,18 +119,11 @@ class _OrderScreenState extends State<OrderScreen> {
         if (widget.tagNotifier.value != null) {
           final tagIndex = tags.indexOf(widget.tagNotifier.value!.tag);
           if (tagIndex < currentTagLast.index) {
-            if (tagSize[currentTagLast.index] > viewSize.height) {
-              navigateTo(orderRoute + tags[currentTagLast.index]);
-              widget.tagNotifier.value = NavigatorType(
-                tag: tags[currentTagLast.index],
-                source: NavigatorTypeSelectionSource.fromScroll,
-              );
-            } else {
-              orderScrollController.scrollTo(
-                index: currentTagLast.index,
-                duration: const Duration(milliseconds: 150),
-              );
-            }
+            navigateTo(orderRoute + tags[currentTagLast.index]);
+            widget.tagNotifier.value = NavigatorType(
+              tag: tags[currentTagLast.index],
+              source: NavigatorTypeSelectionSource.fromScroll,
+            );
           }
         } else {
           if (currentTagFirst.index != 0) {
@@ -185,7 +177,7 @@ class _OrderScreenState extends State<OrderScreen> {
               itemScrollController: orderScrollController,
               itemPositionsListener: orderPositionsListener,
               physics: const ClampingScrollPhysics(),
-              itemCount: 2,
+              itemCount: tags.length,
               itemBuilder: (context, index) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,

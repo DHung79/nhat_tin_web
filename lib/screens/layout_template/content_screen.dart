@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/routers/route_names.dart';
+import '/routers/route_names.dart';
 import '../../main.dart';
 import '../../routers/navigator_type.dart';
 import '../../theme/app_theme.dart';
@@ -239,24 +239,30 @@ class _PageTemplateState extends State<PageTemplate> {
     ];
 
     final searchTitles = titles
-        .where((e) =>
-            e.displayName.toLowerCase().contains(_searchController.text.trim()))
+        .where((e) => e.displayName
+            .toLowerCase()
+            .contains(_searchController.text.trim().toLowerCase()))
         .toList();
     results = searchTitles;
     if (searchTitles.length < 5) {
       final searchSubTitles = subTitles
           .where((e) => e.displayName
               .toLowerCase()
-              .contains(_searchController.text.trim()))
+              .contains(_searchController.text.trim().toLowerCase()))
           .toList();
+
       for (var sub in searchSubTitles) {
         if (results.length < 5) {
-          results.add(sub);
+          if (results
+              .where((e) => sub.displayName.startsWith(e.displayName))
+              .isEmpty) {
+            results.add(sub);
+          }
         }
       }
     }
     return Positioned(
-      right: 232,
+      right: 294,
       top: 65,
       child: Container(
         width: 300,
@@ -289,6 +295,7 @@ class _PageTemplateState extends State<PageTemplate> {
               ),
               onPressed: () {
                 navigateTo(result.route);
+                _searchController.clear();
               },
             );
           },

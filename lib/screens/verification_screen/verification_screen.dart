@@ -22,6 +22,7 @@ class VerificationScreen extends StatefulWidget {
 
 class _VerificationScreenState extends State<VerificationScreen> {
   final verificationPositionsListener = ItemPositionsListener.create();
+  final tags = getTagsOfRoute(verificationRoute);
   double offset = 0;
   final _tag1Key = GlobalKey();
   final _tag2Key = GlobalKey();
@@ -52,7 +53,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition());
     verificationPositionsListener.itemPositions.addListener(() {
-      final tags = getTagsOfRoute(verificationRoute);
       final currentTagFirst =
           verificationPositionsListener.itemPositions.value.first;
       final currentTagLast =
@@ -149,7 +149,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
               itemScrollController: verificationScrollController,
               itemPositionsListener: verificationPositionsListener,
               physics: const ClampingScrollPhysics(),
-              itemCount: 2,
+              itemCount: tags.length,
               itemBuilder: (context, index) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/config/logger/logger.dart';
-import 'package:nhat_tin_web/screens/area_screen/area_screen.dart';
-import 'package:nhat_tin_web/screens/verification_screen/verification_screen.dart';
-import 'package:nhat_tin_web/screens/versions_screen/versions_screen.dart';
+import '/screens/area_screen/area_screen.dart';
+import '/screens/order_screen/order_screen.dart';
+import '/screens/verification_screen/verification_screen.dart';
+import '/screens/versions_screen/versions_screen.dart';
 import '../screens/webhooks_screen/webhook_screen.dart';
 import '/screens/introduction_screen/introduction_screen.dart';
 import '/screens/wellcome_screen/wellcome_screen.dart';
@@ -120,12 +120,12 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
       if (route.length > orderRoute.length) {
         final tag = route.substring(orderRoute.length, route.length);
         if (getTagsOfRoute(orderRoute).contains(tag)) {
-          return VersionsScreen(tagNotifier: _tagNotifier);
+          return OrderScreen(tagNotifier: _tagNotifier);
         } else {
           return const UnknownScreen();
         }
       }
-      return VersionsScreen(tagNotifier: _tagNotifier);
+      return OrderScreen(tagNotifier: _tagNotifier);
     }
 
     if (route == webhooksRoute) {

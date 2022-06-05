@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/theme/app_theme.dart';
+import '/theme/app_theme.dart';
 
 class Tag2 extends StatelessWidget {
   final Color? color;

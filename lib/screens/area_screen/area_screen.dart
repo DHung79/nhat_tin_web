@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import '../../config/logger/logger.dart';
 import '../../theme/app_theme.dart';
 import '/routers/route_names.dart';
 import '../../main.dart';
@@ -24,6 +23,7 @@ class AreaScreen extends StatefulWidget {
 
 class _AreaScreenState extends State<AreaScreen> {
   final areaPositionsListener = ItemPositionsListener.create();
+  final tags = getTagsOfRoute(areaRoute);
   double offset = 0;
   final _tag1Key = GlobalKey();
   final _tag2Key = GlobalKey();
@@ -59,7 +59,6 @@ class _AreaScreenState extends State<AreaScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition());
     areaPositionsListener.itemPositions.addListener(() {
-      final tags = getTagsOfRoute(areaRoute);
       final currentTagFirst = areaPositionsListener.itemPositions.value.first;
       final currentTagLast = areaPositionsListener.itemPositions.value.last;
 
@@ -159,14 +158,15 @@ class _AreaScreenState extends State<AreaScreen> {
               itemScrollController: areaScrollController,
               itemPositionsListener: areaPositionsListener,
               physics: const ClampingScrollPhysics(),
-              itemCount: 3,
+              itemCount: tags.length,
               itemBuilder: (context, index) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        child: _buildTag(index)),
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: _buildTag(index),
+                    ),
                   ],
                 );
               },

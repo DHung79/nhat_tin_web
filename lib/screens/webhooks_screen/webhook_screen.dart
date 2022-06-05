@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/widgets/api_field.dart';
-import 'package:nhat_tin_web/widgets/list_text.dart';
+import '/widgets/api_field.dart';
+import '/widgets/list_text.dart';
 import '../../config/data.dart';
 import '../../main.dart';
 import '../../theme/app_theme.dart';

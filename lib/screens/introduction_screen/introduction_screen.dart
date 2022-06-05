@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/config/logger/logger.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../theme/app_theme.dart';
 import '/routers/route_names.dart';
@@ -23,6 +22,7 @@ class IntroductionScreen extends StatefulWidget {
 
 class _IntroductionScreenState extends State<IntroductionScreen> {
   final introducationPositionsListener = ItemPositionsListener.create();
+      final tags = getTagsOfRoute(introducationRoute);
   double offset = 0;
   final _tag1Key = GlobalKey();
   final _tag2Key = GlobalKey();
@@ -53,7 +53,6 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition());
     introducationPositionsListener.itemPositions.addListener(() {
-      final tags = getTagsOfRoute(introducationRoute);
       final currentTagFirst =
           introducationPositionsListener.itemPositions.value.first;
       final currentTagLast =
@@ -150,7 +149,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               itemScrollController: introducationScrollController,
               itemPositionsListener: introducationPositionsListener,
               physics: const ClampingScrollPhysics(),
-              itemCount: 2,
+              itemCount: tags.length,
               itemBuilder: (context, index) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/theme/app_colors.dart';
-import 'package:nhat_tin_web/theme/app_text_theme.dart';
+import '/theme/app_colors.dart';
+import '/theme/app_text_theme.dart';
 
 import 'list_text.dart';
 

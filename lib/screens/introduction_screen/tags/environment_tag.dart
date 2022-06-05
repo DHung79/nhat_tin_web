@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/main.dart';
+import '/main.dart';
 import '../../../theme/app_theme.dart';
 
 class EnvironmentTag extends StatelessWidget {

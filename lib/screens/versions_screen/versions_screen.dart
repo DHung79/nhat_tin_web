@@ -22,6 +22,7 @@ class VersionsScreen extends StatefulWidget {
 
 class _VersionsScreenState extends State<VersionsScreen> {
   final versionsPositionsListener = ItemPositionsListener.create();
+  final tags = getTagsOfRoute(versionsRoute);
   double offset = 0;
   final _tag1Key = GlobalKey();
   final _tag2Key = GlobalKey();
@@ -52,7 +53,6 @@ class _VersionsScreenState extends State<VersionsScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition());
     versionsPositionsListener.itemPositions.addListener(() {
-      final tags = getTagsOfRoute(versionsRoute);
       final currentTagFirst =
           versionsPositionsListener.itemPositions.value.first;
       final currentTagLast = versionsPositionsListener.itemPositions.value.last;
@@ -148,7 +148,7 @@ class _VersionsScreenState extends State<VersionsScreen> {
               itemScrollController: versionsScrollController,
               itemPositionsListener: versionsPositionsListener,
               physics: const ClampingScrollPhysics(),
-              itemCount: 2,
+              itemCount: tags.length,
               itemBuilder: (context, index) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,

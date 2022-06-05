@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/routers/route_names.dart';
+import '/routers/route_names.dart';
 import '../../../main.dart';
 import '../../../theme/app_theme.dart';
 

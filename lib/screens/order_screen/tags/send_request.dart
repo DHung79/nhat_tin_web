@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/main.dart';
+import '/main.dart';
 import '../../../config/data.dart';
 import '../../../theme/app_theme.dart';
 import '../../../widgets/api_field.dart';
 import '../../../widgets/table.dart';
-import '../../../widgets/table_component.dart';
 import '../order_screen.dart';
 
 class SendRequest extends StatelessWidget {
@@ -22,7 +21,7 @@ class SendRequest extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
             child: Text(
-              'Tracking Vận Đơn',
+              'Gửi yêu cầu',
               style: AppTextTheme.headerTitle(AppColor.blue1),
             ),
           ),
