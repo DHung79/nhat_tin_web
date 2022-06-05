@@ -24,7 +24,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
         color: widget.color,
         border: Border(
           bottom: BorderSide(
-            color: AppColor.blue1.withOpacity(0.3),
+            color: AppColor.white.withOpacity(0.3),
             width: 1,
           ),
         ),
@@ -33,7 +33,14 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _appbarTitle(),
+          AppButtonTheme.fillRounded(
+            color: AppColor.transparent,
+            constraints: const BoxConstraints(minHeight: 44),
+            child: _appbarTitle(),
+            onPressed: () {
+              navigateTo(initialRoute);
+            },
+          ),
           _actions(),
         ],
       ),
@@ -41,18 +48,27 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
   }
 
   _appbarTitle() {
-    return Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
             'Nhất Tín Express API Service',
             style: AppTextTheme.headerTitle(
               AppColor.yellow1,
             ),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              'NhatTin • ntexpress',
+              style: AppTextTheme.normalText(AppColor.yellow2),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -61,16 +77,26 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
       children: [
         widget.searchField,
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.notifications,
-                color: AppColor.black,
-              ),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: AppButtonTheme.fillRounded(
+            color: AppColor.white,
+            constraints: const BoxConstraints(minHeight: 44),
+            borderRadius: BorderRadius.circular(4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    ScreenUtil.t(I18nKey.guide)!,
+                    style: AppTextTheme.mediumBodyText(AppColor.black),
+                  ),
+                ),
+              ],
             ),
-            onTap: () {},
+            onPressed: () {
+              navigateTo(introducationRoute);
+            },
           ),
         ),
         _adminInfo(),
@@ -79,11 +105,14 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
   }
 
   _adminInfo() {
-    final List<NavigatorItem> adminMenuItems = [
-      NavigatorItem(
-        title: 'Giới thiệu',
-        route: introductionRoute,
-        tag: '1',
+    final List<LanguageItem> adminMenuItems = [
+      LanguageItem(
+        title: ScreenUtil.t(I18nKey.vietnamese)!,
+        supportedLocale: supportedLocales[0],
+      ),
+      LanguageItem(
+        title: ScreenUtil.t(I18nKey.english)!,
+        supportedLocale: supportedLocales[1],
       ),
     ];
     return PopupMenuButton(
@@ -94,24 +123,39 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-        child: Row(
-          children: [
-            Text(
-              'widget.admin.name',
-              style: AppTextTheme.normalText(
-                AppColor.black,
-              ),
+        padding: const EdgeInsets.only(right: 16),
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 44),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
+            child: Row(
+              children: [
+                Text(
+                  ScreenUtil.t(I18nKey.language)!,
+                  style: AppTextTheme.mediumBodyText(
+                    AppColor.black,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Icon(
+                    Icons.arrow_drop_down,
+                    color: AppColor.black,
+                    size: 24,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(
-              width: 16,
-            ),
-          ],
+          ),
         ),
       ),
       itemBuilder: (context) {
-        return adminMenuItems.map((NavigatorItem item) {
-          return PopupMenuItem<NavigatorItem>(
+        return adminMenuItems.map((LanguageItem item) {
+          return PopupMenuItem<LanguageItem>(
             value: item,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -130,21 +174,21 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
           );
         }).toList();
       },
-      onSelected: (NavigatorItem item) {
-        navigateTo(item.route);
+      onSelected: (LanguageItem item) {
+        App.of(context)!.setLocale(
+          supportedLocales.firstWhere((e) => e == item.supportedLocale),
+        );
       },
     );
   }
 }
 
-class NavigatorItem {
-  NavigatorItem({
+class LanguageItem {
+  LanguageItem({
     required this.title,
-    required this.route,
-    required this.tag,
+    required this.supportedLocale,
   });
 
   final String title;
-  final String route;
-  final String tag;
+  final Locale supportedLocale;
 }

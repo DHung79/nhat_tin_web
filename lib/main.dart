@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'config/locator.dart';
 import 'config/scroll_behavior.dart';
@@ -16,16 +17,24 @@ export 'locales/i18n_key.dart';
 
 int notiBadges = 0;
 int homeTabIndex = 0;
-int selectedPage = 0;
 Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 // Page index
 int userManagementIndex = 1;
 //Page search
 String userManagementSearchString = '';
 GlobalKey globalKey = GlobalKey();
+final introducationScrollController = ItemScrollController();
+final versionsScrollController = ItemScrollController();
+final verificationScrollController = ItemScrollController();
+final areaScrollController = ItemScrollController();
+final orderScrollController = ItemScrollController();
 
 navigateTo(String route) async {
   locator<AppRouterDelegate>().navigateTo(route);
+}
+
+jumpTo(int index, {required ItemScrollController controller}) {
+  controller.jumpTo(index: index);
 }
 
 List<String> getTagsOfRoute(String route) {

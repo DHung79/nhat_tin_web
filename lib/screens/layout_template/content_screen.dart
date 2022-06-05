@@ -1,8 +1,5 @@
 import 'dart:math';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/config/logger/logger.dart';
 import 'package:nhat_tin_web/routers/route_names.dart';
 import '../../main.dart';
 import '../../routers/navigator_type.dart';
@@ -15,14 +12,14 @@ class PageTemplate extends StatefulWidget {
   final Widget child;
   final String route;
   final Widget? wellcome;
-  final ValueListenable<NavigatorType?> tagNotifier;
+  final ValueNotifier<NavigatorType?>? tagNotifier;
 
   const PageTemplate({
     Key? key,
     required this.child,
     required this.route,
+    this.tagNotifier,
     this.wellcome,
-    required this.tagNotifier,
   }) : super(key: key);
 
   @override
@@ -68,11 +65,11 @@ class _PageTemplateState extends State<PageTemplate> {
                     style: AppTextTheme.normalText(AppColor.black),
                     hoverColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(4),
                       borderSide: BorderSide.none,
                     ),
                     fillColor: Colors.white,
-                    hintText: 'Tìm kiếm',
+                    hintText: ScreenUtil.t(I18nKey.search),
                     hintStyle: AppTextTheme.normalText(
                       Colors.grey,
                     ),
@@ -119,7 +116,7 @@ class _PageTemplateState extends State<PageTemplate> {
                         SideBar(
                           color: color,
                           route: widget.route,
-                          tagNotifier: widget.tagNotifier,
+                          tagNotifier: widget.tagNotifier!,
                         ),
                         Expanded(child: widget.child),
                       ],
@@ -137,7 +134,7 @@ class _PageTemplateState extends State<PageTemplate> {
     final titles = [
       SearchItem(
         displayName: ScreenUtil.t(I18nKey.introduce)!,
-        route: introductionRoute,
+        route: introducationRoute,
       ),
       SearchItem(
         displayName: ScreenUtil.t(I18nKey.versions)!,
@@ -164,80 +161,80 @@ class _PageTemplateState extends State<PageTemplate> {
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.introduce)!} > ${ScreenUtil.t(I18nKey.contact)!}',
-        route: '$introductionRoute/1',
+        route: introducationRoute + introductionTag1,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.introduce)!} > ${ScreenUtil.t(I18nKey.environment)!}',
-        route: '$introductionRoute/2',
+        route: introducationRoute + introductionTag2,
       ),
       SearchItem(
         displayName: 'B1 ver 1.0.0',
-        route: '$versionsRoute/1',
+        route: versionsRoute + versionsTag1,
       ),
       SearchItem(
         displayName: 'B1 ver 1.0.1',
-        route: '$versionsRoute/2',
+        route: versionsRoute + versionsTag2,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.verification)!} > ${ScreenUtil.t(I18nKey.personalAccessTokens)!}',
-        route: '$verificationRoute/1',
+        route: verificationRoute + verificationTag1,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.verification)!} > ${ScreenUtil.t(I18nKey.passwordGrantTokens)!}',
-        route: '$verificationRoute/2',
+        route: verificationRoute + verificationTag2,
       ),
       SearchItem(
         displayName:
-            '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.province)!}',
-        route: '$areaRoute/1',
+            '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.provinces)!}',
+        route: areaRoute + areaTag1,
       ),
       SearchItem(
         displayName:
-            '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.district)!}',
-        route: '$introductionRoute/2',
+            '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.districts)!}',
+        route: areaRoute + areaTag2,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.area)!} > ${ScreenUtil.t(I18nKey.wards)!}',
-        route: '$introductionRoute/3',
+        route: areaRoute + areaTag3,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.printBillOfLading)!}',
-        route: '$orderRoute/1',
+        route: orderRoute + orderTag1,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createBillOfLading)!}',
-        route: '$orderRoute/2',
+        route: orderRoute + orderTag2,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createBillOfLadingVer2)!}',
-        route: '$orderRoute/3',
+        route: orderRoute + orderTag3,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.trackingBillOfLading)!}',
-        route: '$orderRoute/4',
+        route: orderRoute + orderTag4,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.pricingShippingCost)!}',
-        route: '$orderRoute/5',
+        route: orderRoute + orderTag5,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.cancelBillOfLading)!}',
-        route: '$orderRoute/6',
+        route: orderRoute + orderTag6,
       ),
       SearchItem(
         displayName:
             '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.sendRequest)!}',
-        route: '$orderRoute/7',
+        route: orderRoute + orderTag7,
       ),
     ];
 

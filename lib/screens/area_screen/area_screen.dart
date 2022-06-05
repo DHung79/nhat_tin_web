@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/config/logger/logger.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../../config/logger/logger.dart';
 import '../../theme/app_theme.dart';
 import '/routers/route_names.dart';
 import '../../main.dart';
 import '../../routers/navigator_type.dart';
 import '../layout_template/content_screen.dart';
-import 'tags/contact_tag.dart';
-import 'tags/environment_tag.dart';
+import 'tags/provinces_tag.dart';
+import 'tags/districts_tag.dart';
+import 'tags/wards_tag.dart';
 
-class IntroductionScreen extends StatefulWidget {
+class AreaScreen extends StatefulWidget {
   final ValueNotifier<NavigatorType?> tagNotifier;
 
-  const IntroductionScreen({
+  const AreaScreen({
     Key? key,
     required this.tagNotifier,
   }) : super(key: key);
 
   @override
-  State<IntroductionScreen> createState() => _IntroductionScreenState();
+  State<AreaScreen> createState() => _AreaScreenState();
 }
 
-class _IntroductionScreenState extends State<IntroductionScreen> {
-  final introducationPositionsListener = ItemPositionsListener.create();
+class _AreaScreenState extends State<AreaScreen> {
+  final areaPositionsListener = ItemPositionsListener.create();
   double offset = 0;
   final _tag1Key = GlobalKey();
   final _tag2Key = GlobalKey();
+  final _tag3Key = GlobalKey();
   final _viewKey = GlobalKey();
   late Size tag1Size;
   late Size tag2Size;
+  late Size tag3Size;
   late Size viewSize;
   late List<double> tagSize = [];
   getSizeAndPosition() {
@@ -36,15 +39,18 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
         _tag1Key.currentContext?.findRenderObject() as RenderBox;
     RenderBox? tag2Box =
         _tag2Key.currentContext?.findRenderObject() as RenderBox;
+    RenderBox? tag3Box =
+        _tag3Key.currentContext?.findRenderObject() as RenderBox;
     RenderBox? viewBox =
         _viewKey.currentContext?.findRenderObject() as RenderBox;
     tag1Size = tag1Box.size;
     tag2Size = tag2Box.size;
-
+    tag3Size = tag3Box.size;
     viewSize = viewBox.size;
     tagSize = [
       tag1Size.height,
       tag2Size.height,
+      tag3Size.height,
     ];
     setState(() {});
   }
@@ -52,21 +58,19 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition());
-    introducationPositionsListener.itemPositions.addListener(() {
-      final tags = getTagsOfRoute(introducationRoute);
-      final currentTagFirst =
-          introducationPositionsListener.itemPositions.value.first;
-      final currentTagLast =
-          introducationPositionsListener.itemPositions.value.last;
+    areaPositionsListener.itemPositions.addListener(() {
+      final tags = getTagsOfRoute(areaRoute);
+      final currentTagFirst = areaPositionsListener.itemPositions.value.first;
+      final currentTagLast = areaPositionsListener.itemPositions.value.last;
 
       if (offset == currentTagFirst.itemLeadingEdge) {
         if (widget.tagNotifier.value != null) {
           final tagIndex = tags.indexOf(widget.tagNotifier.value!.tag);
           if (tagIndex != currentTagFirst.index) {
             if (tagSize[tagIndex] > viewSize.height) {
-              jumpTo(tagIndex, controller: introducationScrollController);
+              jumpTo(tagIndex, controller: areaScrollController);
             } else {
-              introducationScrollController.scrollTo(
+              areaScrollController.scrollTo(
                 index: tagIndex,
                 duration: const Duration(milliseconds: 150),
               );
@@ -74,7 +78,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           }
         } else {
           if (currentTagFirst.index != 0) {
-            navigateTo(introducationRoute + tags[currentTagFirst.index]);
+            navigateTo(areaRoute + tags[currentTagFirst.index]);
             widget.tagNotifier.value = NavigatorType(
               tag: tags[currentTagFirst.index],
               source: NavigatorTypeSelectionSource.fromScroll,
@@ -86,13 +90,13 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           final tagIndex = tags.indexOf(widget.tagNotifier.value!.tag);
           if (tagIndex < currentTagLast.index) {
             if (tagSize[currentTagLast.index] > viewSize.height) {
-              navigateTo(introducationRoute + tags[currentTagLast.index]);
+              navigateTo(areaRoute + tags[currentTagLast.index]);
               widget.tagNotifier.value = NavigatorType(
                 tag: tags[currentTagLast.index],
                 source: NavigatorTypeSelectionSource.fromScroll,
               );
             } else {
-              introducationScrollController.scrollTo(
+              areaScrollController.scrollTo(
                 index: currentTagLast.index,
                 duration: const Duration(milliseconds: 150),
               );
@@ -100,7 +104,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           }
         } else {
           if (currentTagFirst.index != 0) {
-            navigateTo(introducationRoute + tags[currentTagFirst.index]);
+            navigateTo(areaRoute + tags[currentTagFirst.index]);
             widget.tagNotifier.value = NavigatorType(
               tag: tags[currentTagFirst.index],
               source: NavigatorTypeSelectionSource.fromScroll,
@@ -110,7 +114,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
       } else {
         final tagIndex = tags.indexOf(widget.tagNotifier.value!.tag);
         if (tagIndex > currentTagFirst.index) {
-          navigateTo(introducationRoute + tags[currentTagFirst.index]);
+          navigateTo(areaRoute + tags[currentTagFirst.index]);
           widget.tagNotifier.value = NavigatorType(
             tag: tags[currentTagFirst.index],
             source: NavigatorTypeSelectionSource.fromScroll,
@@ -123,9 +127,14 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      route: introducationRoute,
+      route: areaRoute,
       tagNotifier: widget.tagNotifier,
       child: Container(
         decoration: BoxDecoration(
@@ -147,10 +156,10 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             child: ScrollablePositionedList.builder(
               key: _viewKey,
               shrinkWrap: true,
-              itemScrollController: introducationScrollController,
-              itemPositionsListener: introducationPositionsListener,
+              itemScrollController: areaScrollController,
+              itemPositionsListener: areaPositionsListener,
               physics: const ClampingScrollPhysics(),
-              itemCount: 2,
+              itemCount: 3,
               itemBuilder: (context, index) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -170,9 +179,17 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
 
   Widget _buildTag(int index) {
     if (index == 0) {
-      return ContactTag(key: _tag1Key);
+      return ProvincesTag(
+        key: _tag1Key,
+      );
+    } else if (index == 1) {
+      return DistrictsTag(
+        key: _tag2Key,
+      );
     } else {
-      return EnvironmentTag(key: _tag2Key);
+      return WardsTag(
+        key: _tag3Key,
+      );
     }
   }
 }

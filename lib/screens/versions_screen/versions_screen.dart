@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:nhat_tin_web/config/logger/logger.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../theme/app_theme.dart';
 import '/routers/route_names.dart';
 import '../../main.dart';
 import '../../routers/navigator_type.dart';
 import '../layout_template/content_screen.dart';
-import 'tags/contact_tag.dart';
-import 'tags/environment_tag.dart';
+import 'tags/version_101.dart';
+import 'tags/version_100.dart';
 
-class IntroductionScreen extends StatefulWidget {
+class VersionsScreen extends StatefulWidget {
   final ValueNotifier<NavigatorType?> tagNotifier;
 
-  const IntroductionScreen({
+  const VersionsScreen({
     Key? key,
     required this.tagNotifier,
   }) : super(key: key);
 
   @override
-  State<IntroductionScreen> createState() => _IntroductionScreenState();
+  State<VersionsScreen> createState() => _VersionsScreenState();
 }
 
-class _IntroductionScreenState extends State<IntroductionScreen> {
-  final introducationPositionsListener = ItemPositionsListener.create();
+class _VersionsScreenState extends State<VersionsScreen> {
+  final versionsPositionsListener = ItemPositionsListener.create();
   double offset = 0;
   final _tag1Key = GlobalKey();
   final _tag2Key = GlobalKey();
@@ -52,21 +51,20 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition());
-    introducationPositionsListener.itemPositions.addListener(() {
-      final tags = getTagsOfRoute(introducationRoute);
+    versionsPositionsListener.itemPositions.addListener(() {
+      final tags = getTagsOfRoute(versionsRoute);
       final currentTagFirst =
-          introducationPositionsListener.itemPositions.value.first;
-      final currentTagLast =
-          introducationPositionsListener.itemPositions.value.last;
+          versionsPositionsListener.itemPositions.value.first;
+      final currentTagLast = versionsPositionsListener.itemPositions.value.last;
 
       if (offset == currentTagFirst.itemLeadingEdge) {
         if (widget.tagNotifier.value != null) {
           final tagIndex = tags.indexOf(widget.tagNotifier.value!.tag);
           if (tagIndex != currentTagFirst.index) {
             if (tagSize[tagIndex] > viewSize.height) {
-              jumpTo(tagIndex, controller: introducationScrollController);
+              jumpTo(tagIndex, controller: versionsScrollController);
             } else {
-              introducationScrollController.scrollTo(
+              versionsScrollController.scrollTo(
                 index: tagIndex,
                 duration: const Duration(milliseconds: 150),
               );
@@ -74,7 +72,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           }
         } else {
           if (currentTagFirst.index != 0) {
-            navigateTo(introducationRoute + tags[currentTagFirst.index]);
+            navigateTo(versionsRoute + tags[currentTagFirst.index]);
             widget.tagNotifier.value = NavigatorType(
               tag: tags[currentTagFirst.index],
               source: NavigatorTypeSelectionSource.fromScroll,
@@ -86,13 +84,13 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           final tagIndex = tags.indexOf(widget.tagNotifier.value!.tag);
           if (tagIndex < currentTagLast.index) {
             if (tagSize[currentTagLast.index] > viewSize.height) {
-              navigateTo(introducationRoute + tags[currentTagLast.index]);
+              navigateTo(versionsRoute + tags[currentTagLast.index]);
               widget.tagNotifier.value = NavigatorType(
                 tag: tags[currentTagLast.index],
                 source: NavigatorTypeSelectionSource.fromScroll,
               );
             } else {
-              introducationScrollController.scrollTo(
+              versionsScrollController.scrollTo(
                 index: currentTagLast.index,
                 duration: const Duration(milliseconds: 150),
               );
@@ -100,7 +98,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           }
         } else {
           if (currentTagFirst.index != 0) {
-            navigateTo(introducationRoute + tags[currentTagFirst.index]);
+            navigateTo(versionsRoute + tags[currentTagFirst.index]);
             widget.tagNotifier.value = NavigatorType(
               tag: tags[currentTagFirst.index],
               source: NavigatorTypeSelectionSource.fromScroll,
@@ -110,7 +108,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
       } else {
         final tagIndex = tags.indexOf(widget.tagNotifier.value!.tag);
         if (tagIndex > currentTagFirst.index) {
-          navigateTo(introducationRoute + tags[currentTagFirst.index]);
+          navigateTo(versionsRoute + tags[currentTagFirst.index]);
           widget.tagNotifier.value = NavigatorType(
             tag: tags[currentTagFirst.index],
             source: NavigatorTypeSelectionSource.fromScroll,
@@ -125,7 +123,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   @override
   Widget build(BuildContext context) {
     return PageTemplate(
-      route: introducationRoute,
+      route: versionsRoute,
       tagNotifier: widget.tagNotifier,
       child: Container(
         decoration: BoxDecoration(
@@ -147,8 +145,8 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             child: ScrollablePositionedList.builder(
               key: _viewKey,
               shrinkWrap: true,
-              itemScrollController: introducationScrollController,
-              itemPositionsListener: introducationPositionsListener,
+              itemScrollController: versionsScrollController,
+              itemPositionsListener: versionsPositionsListener,
               physics: const ClampingScrollPhysics(),
               itemCount: 2,
               itemBuilder: (context, index) {
@@ -170,9 +168,9 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
 
   Widget _buildTag(int index) {
     if (index == 0) {
-      return ContactTag(key: _tag1Key);
+      return Version100(key: _tag1Key);
     } else {
-      return EnvironmentTag(key: _tag2Key);
+      return Version101(key: _tag2Key);
     }
   }
 }

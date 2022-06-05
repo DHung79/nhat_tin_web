@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTextTheme {
   static TextStyle mediumBigText(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w500,
       color: color,
       fontSize: 24,
@@ -12,39 +12,47 @@ class AppTextTheme {
   }
 
   static TextStyle bigText(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w400,
       color: color,
       fontSize: 24,
     );
   }
 
-  static TextStyle headerTitle(Color color) {
-    return GoogleFonts.lexend(
+  static TextStyle bigHeaderTitle(Color color) {
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w700,
       color: color,
-      fontSize: 16,
+      fontSize: 24,
+    );
+  }
+
+  static TextStyle headerTitle(Color color) {
+    return GoogleFonts.roboto(
+      fontWeight: FontWeight.w700,
+      color: color,
+      fontSize: 22,
     );
   }
 
   static TextStyle mediumHeaderTitle(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w500,
       color: color,
-      fontSize: 16,
+      fontSize: 20,
     );
   }
 
   static TextStyle normalHeaderTitle(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w400,
       color: color,
-      fontSize: 16,
+      fontSize: 18,
     );
   }
 
   static TextStyle boldBodyText(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w700,
       color: color,
       fontSize: 14,
@@ -52,15 +60,15 @@ class AppTextTheme {
   }
 
   static TextStyle mediumBodyText(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w500,
       color: color,
-      fontSize: 14,
+      fontSize: 16,
     );
   }
 
   static TextStyle normalText(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w400,
       color: color,
       fontSize: 14,
@@ -68,7 +76,7 @@ class AppTextTheme {
   }
 
   static TextStyle link(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w400,
       color: color,
       fontSize: 14,
@@ -77,7 +85,7 @@ class AppTextTheme {
   }
 
   static TextStyle superscript(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w400,
       color: color,
       fontSize: 14,
@@ -88,7 +96,7 @@ class AppTextTheme {
   }
 
   static TextStyle subText(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w400,
       color: color,
       fontSize: 12,
@@ -96,7 +104,7 @@ class AppTextTheme {
   }
 
   static TextStyle superSmallText(Color color) {
-    return GoogleFonts.lexend(
+    return GoogleFonts.roboto(
       fontWeight: FontWeight.w400,
       color: color,
       fontSize: 10,

@@ -12,13 +12,37 @@ class AppRoutePath {
   //authentication
   AppRoutePath.introduction({String? tag})
       : name = tag != null && tag.isNotEmpty
-            ? '$introductionRoute$tag'
-            : introductionRoute,
+            ? '$introducationRoute$tag'
+            : introducationRoute,
+        routeId = '',
+        isUnknown = false;
+
+  AppRoutePath.versions({String? tag})
+      : name = tag != null && tag.isNotEmpty
+            ? '$versionsRoute$tag'
+            : versionsRoute,
+        routeId = '',
+        isUnknown = false;
+
+  AppRoutePath.verification({String? tag})
+      : name = tag != null && tag.isNotEmpty
+            ? '$verificationRoute$tag'
+            : verificationRoute,
         routeId = '',
         isUnknown = false;
 
   AppRoutePath.area({String? tag})
       : name = tag != null && tag.isNotEmpty ? '$areaRoute$tag' : areaRoute,
+        routeId = '',
+        isUnknown = false;
+
+  AppRoutePath.order({String? tag})
+      : name = tag != null && tag.isNotEmpty ? '$orderRoute$tag' : orderRoute,
+        routeId = '',
+        isUnknown = false;
+
+  AppRoutePath.webhooks()
+      : name = webhooksRoute,
         routeId = '',
         isUnknown = false;
 
@@ -35,12 +59,28 @@ class AppRoutePath {
     }
     //authentication
 
-    if (name!.startsWith(introductionRoute)) {
-      if (name.length > introductionRoute.length) {
-        final tag = name.substring(introductionRoute.length, name.length);
+    if (name!.startsWith(introducationRoute)) {
+      if (name.length > introducationRoute.length) {
+        final tag = name.substring(introducationRoute.length, name.length);
         if (tag.isNotEmpty) return AppRoutePath.introduction(tag: tag);
       }
       return AppRoutePath.introduction();
+    }
+
+    if (name.startsWith(versionsRoute)) {
+      if (name.length > versionsRoute.length) {
+        final tag = name.substring(versionsRoute.length, name.length);
+        if (tag.isNotEmpty) return AppRoutePath.versions(tag: tag);
+      }
+      return AppRoutePath.versions();
+    }
+
+    if (name.startsWith(verificationRoute)) {
+      if (name.length > verificationRoute.length) {
+        final tag = name.substring(verificationRoute.length, name.length);
+        if (tag.isNotEmpty) return AppRoutePath.verification(tag: tag);
+      }
+      return AppRoutePath.verification();
     }
 
     if (name.startsWith(areaRoute)) {
@@ -49,6 +89,18 @@ class AppRoutePath {
         if (tag.isNotEmpty) return AppRoutePath.area(tag: tag);
       }
       return AppRoutePath.area();
+    }
+
+    if (name.startsWith(orderRoute)) {
+      if (name.length > orderRoute.length) {
+        final tag = name.substring(orderRoute.length, name.length);
+        if (tag.isNotEmpty) return AppRoutePath.order(tag: tag);
+      }
+      return AppRoutePath.order();
+    }
+
+    if (name == webhooksRoute) {
+      return AppRoutePath.webhooks();
     }
 
     return AppRoutePath.unknown();
