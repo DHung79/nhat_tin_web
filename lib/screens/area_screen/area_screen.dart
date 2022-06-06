@@ -33,25 +33,28 @@ class _AreaScreenState extends State<AreaScreen> {
   late Size tag2Size;
   late Size tag3Size;
   late Size viewSize;
-  late List<double> tagSize = [];
+
   getSizeAndPosition() {
-    RenderBox? tag1Box =
-        _tag1Key.currentContext?.findRenderObject() as RenderBox;
-    RenderBox? tag2Box =
-        _tag2Key.currentContext?.findRenderObject() as RenderBox;
-    RenderBox? tag3Box =
-        _tag3Key.currentContext?.findRenderObject() as RenderBox;
+    if (_tag1Key.currentContext != null) {
+      RenderBox? tag1Box =
+          _tag1Key.currentContext?.findRenderObject() as RenderBox;
+      tag1Size = tag1Box.size;
+    }
+    if (_tag2Key.currentContext != null) {
+      RenderBox? tag2Box =
+          _tag2Key.currentContext?.findRenderObject() as RenderBox;
+      tag2Size = tag2Box.size;
+    }
+    if (_tag3Key.currentContext != null) {
+      RenderBox? tag3Box =
+          _tag3Key.currentContext?.findRenderObject() as RenderBox;
+      tag1Size = tag3Box.size;
+    }
     RenderBox? viewBox =
         _viewKey.currentContext?.findRenderObject() as RenderBox;
-    tag1Size = tag1Box.size;
-    tag2Size = tag2Box.size;
-    tag3Size = tag3Box.size;
+
     viewSize = viewBox.size;
-    tagSize = [
-      tag1Size.height,
-      tag2Size.height,
-      tag3Size.height,
-    ];
+
     setState(() {});
   }
 
@@ -66,14 +69,7 @@ class _AreaScreenState extends State<AreaScreen> {
         if (widget.tagNotifier.value != null) {
           final tagIndex = tags.indexOf(widget.tagNotifier.value!.tag);
           if (tagIndex != currentTagFirst.index) {
-            if (tagSize[tagIndex] > viewSize.height) {
-              jumpTo(tagIndex, controller: areaScrollController);
-            } else {
-              areaScrollController.scrollTo(
-                index: tagIndex,
-                duration: const Duration(milliseconds: 150),
-              );
-            }
+            jumpTo(tagIndex, controller: areaScrollController);
           }
         } else {
           if (currentTagFirst.index != 0) {
@@ -88,18 +84,11 @@ class _AreaScreenState extends State<AreaScreen> {
         if (widget.tagNotifier.value != null) {
           final tagIndex = tags.indexOf(widget.tagNotifier.value!.tag);
           if (tagIndex < currentTagLast.index) {
-            if (tagSize[currentTagLast.index] > viewSize.height) {
-              navigateTo(areaRoute + tags[currentTagLast.index]);
-              widget.tagNotifier.value = NavigatorType(
-                tag: tags[currentTagLast.index],
-                source: NavigatorTypeSelectionSource.fromScroll,
-              );
-            } else {
-              areaScrollController.scrollTo(
-                index: currentTagLast.index,
-                duration: const Duration(milliseconds: 150),
-              );
-            }
+            navigateTo(areaRoute + tags[currentTagLast.index]);
+            widget.tagNotifier.value = NavigatorType(
+              tag: tags[currentTagLast.index],
+              source: NavigatorTypeSelectionSource.fromScroll,
+            );
           }
         } else {
           if (currentTagFirst.index != 0) {
@@ -164,7 +153,7 @@ class _AreaScreenState extends State<AreaScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: max(MediaQuery.of(context).size.width * 0.4, 750),
                       child: _buildTag(index),
                     ),
                   ],

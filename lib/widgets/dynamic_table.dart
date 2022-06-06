@@ -1,6 +1,4 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-
 import '../../main.dart';
 import '../theme/app_theme.dart';
 import 'table_component.dart';

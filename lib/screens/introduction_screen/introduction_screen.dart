@@ -155,7 +155,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.4,
+                        width: max(MediaQuery.of(context).size.width * 0.4, 750),
                         child: _buildTag(index)),
                   ],
                 );

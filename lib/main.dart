@@ -14,6 +14,7 @@ import 'utils/app_state_notifier.dart';
 export 'locales/i18n.dart';
 export 'utils/screen_util.dart';
 export 'locales/i18n_key.dart';
+export 'dart:math';
 
 int notiBadges = 0;
 int homeTabIndex = 0;
