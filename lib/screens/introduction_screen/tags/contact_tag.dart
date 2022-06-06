@@ -24,7 +24,7 @@ class ContactTag extends StatelessWidget {
           ),
           const Divider(),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             child: Text(
               ScreenUtil.t(I18nKey.introduce)!,
               style: AppTextTheme.headerTitle(AppColor.black),
@@ -32,7 +32,7 @@ class ContactTag extends StatelessWidget {
           ),
           Text(
             ScreenUtil.t(I18nKey.introWeb)!,
-            style: AppTextTheme.normalText(AppColor.black),
+            style: AppTextTheme.normalHeaderTitle(AppColor.black),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -63,7 +63,7 @@ class ContactTag extends StatelessWidget {
                 _boxContent(ScreenUtil.t(I18nKey.webPortalContentBox)!),
                 Text(
                   ScreenUtil.t(I18nKey.webPortalContent)!,
-                  style: AppTextTheme.normalText(AppColor.black),
+                  style: AppTextTheme.normalHeaderTitle(AppColor.black),
                 ),
               ],
             ),

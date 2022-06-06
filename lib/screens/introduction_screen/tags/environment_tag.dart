@@ -23,7 +23,7 @@ class EnvironmentTag extends StatelessWidget {
           ),
           Text(
             ScreenUtil.t(I18nKey.noData)!,
-            style: AppTextTheme.normalText(AppColor.black),
+            style: AppTextTheme.normalHeaderTitle(AppColor.black),
           ),
         ],
       ),
