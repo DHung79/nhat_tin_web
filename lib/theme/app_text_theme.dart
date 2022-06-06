@@ -48,6 +48,7 @@ class AppTextTheme {
       fontWeight: FontWeight.w400,
       color: color,
       fontSize: 18,
+      height: 1.5,
     );
   }
 
@@ -71,6 +72,7 @@ class AppTextTheme {
     return GoogleFonts.roboto(
       fontWeight: FontWeight.w400,
       color: color,
+      height: 1.8,
       fontSize: 14,
     );
   }

@@ -202,22 +202,22 @@ class _PageTemplateState extends State<PageTemplate> {
       ),
       SearchItem(
         displayName:
-            '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.printBillOfLading)!}',
+            '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.printOrder)!}',
         route: orderRoute + orderTag1,
       ),
       SearchItem(
         displayName:
-            '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createBillOfLading)!}',
+            '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createOrder)!}',
         route: orderRoute + orderTag2,
       ),
       SearchItem(
         displayName:
-            '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createBillOfLadingVer2)!}',
+            '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createOrder)!}',
         route: orderRoute + orderTag3,
       ),
       SearchItem(
         displayName:
-            '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.trackingBillOfLading)!}',
+            '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.createOrderVer2)!}',
         route: orderRoute + orderTag4,
       ),
       SearchItem(
@@ -227,7 +227,7 @@ class _PageTemplateState extends State<PageTemplate> {
       ),
       SearchItem(
         displayName:
-            '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.cancelBillOfLading)!}',
+            '${ScreenUtil.t(I18nKey.order)!} > ${ScreenUtil.t(I18nKey.cancelOrder)!}',
         route: orderRoute + orderTag6,
       ),
       SearchItem(

@@ -7,7 +7,8 @@ class AppColor {
   static Color blue1 = hexToColor('#007BFF');
   static Color blue2 = hexToColor('#6610F2');
   static Color blue3 = hexToColor('#6F42C1');
-  
+  static Color green = hexToColor('#17A11C');
+
   static Color white = Colors.white;
   static Color black = Colors.black;
   static Color transparent = Colors.transparent;

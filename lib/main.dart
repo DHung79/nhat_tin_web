@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:oktoast/oktoast.dart';
@@ -14,6 +15,7 @@ import 'utils/app_state_notifier.dart';
 export 'locales/i18n.dart';
 export 'utils/screen_util.dart';
 export 'locales/i18n_key.dart';
+export 'package:easy_localization/easy_localization.dart';
 export 'dart:math';
 
 int notiBadges = 0;
@@ -49,36 +51,27 @@ final List<Locale> supportedLocales = <Locale>[
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await loadVersion();
   setupLocator();
   runApp(
     ChangeNotifierProvider<AppStateNotifier>(
       create: (_) => AppStateNotifier(),
-      child: const OKToast(
-        child: App(),
+      child: EasyLocalization(
+        supportedLocales: supportedLocales,
+        fallbackLocale: supportedLocales[0],
+        path: 'locales',
+        child: OKToast(
+          child: App(),
+        ),
       ),
     ),
   );
 }
 
-class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
-
-  @override
-  State<App> createState() => AppState();
-  static AppState? of(BuildContext context) =>
-      context.findAncestorStateOfType<AppState>();
-}
-
-class AppState extends State<App> {
+class App extends StatelessWidget {
   final AppRouteInforParser _routeInfoParser = AppRouteInforParser();
-  Locale currentLocale = supportedLocales[0];
-
-  void setLocale(Locale value) {
-    setState(() {
-      currentLocale = value;
-    });
-  }
+  App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +91,8 @@ class AppState extends State<App> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: supportedLocales,
-          locale: currentLocale,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
         );
       },
     );

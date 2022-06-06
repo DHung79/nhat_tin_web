@@ -29,7 +29,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
           ),
         ),
       ),
-      height: 72,
+      height: 82,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -60,12 +60,9 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
               AppColor.yellow1,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Text(
-              'NhatTin • ntexpress',
-              style: AppTextTheme.normalText(AppColor.yellow2),
-            ),
+          Text(
+            'NhatTin • ntexpress',
+            style: AppTextTheme.normalText(AppColor.yellow2),
           ),
         ],
       ),
@@ -155,19 +152,25 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
       ),
       itemBuilder: (context) {
         return adminMenuItems.map((LanguageItem item) {
+          final selectedLang = context.locale.languageCode ==
+              item.supportedLocale.languageCode;
           return PopupMenuItem<LanguageItem>(
             value: item,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Text(
-                      item.title,
-                      style: AppTextTheme.normalText(AppColor.black),
-                    ),
+                  Text(
+                    item.title,
+                    style: AppTextTheme.normalText(AppColor.black),
                   ),
+                  if (selectedLang)
+                    Icon(
+                      Icons.check,
+                      color: AppColor.blue2,
+                      size: 24,
+                    ),
                 ],
               ),
             ),
@@ -175,7 +178,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
         }).toList();
       },
       onSelected: (LanguageItem item) {
-        App.of(context)!.setLocale(item.supportedLocale);
+        context.setLocale(item.supportedLocale);
       },
     );
   }

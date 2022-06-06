@@ -21,24 +21,25 @@ class SendRequest extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
             child: Text(
-              'Gửi yêu cầu',
+              ScreenUtil.t(I18nKey.sendRequest)!,
               style: AppTextTheme.headerTitle(AppColor.blue1),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 8, 32, 16),
             child: Text(
-              'Gửi yêu cầu chỉnh sửa vận đơn',
-              style: AppTextTheme.normalText(AppColor.black),
+              ScreenUtil.t(I18nKey.sendRequestContent)!,
+              style: AppTextTheme.normalHeaderTitle(AppColor.black),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ApiField(
-              method: 'POST',
+              method: ApiMethod.post,
               link:
                   'https://private-anon-023b4f4949-ntexpress.apiary-mock.com/v1/bill/request-edit-bill',
               parameterBox: WebTable(
+                apiMethod: ApiMethod.post,
                 columnWidthRatio: parameterBoxHeader,
                 numberOfRows: sendRequestParameter.length,
                 rowBuilder: (index) => rowFor(

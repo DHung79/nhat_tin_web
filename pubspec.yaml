@@ -55,6 +55,8 @@ dependencies:
   syncfusion_flutter_xlsio: ^20.1.56-beta
   popover: ^0.2.6+3
   scrollable_positioned_list: ^0.3.2
+  easy_localization: ^3.0.1
+  url_launcher: ^6.1.2
 
 dev_dependencies:
   flutter_test:

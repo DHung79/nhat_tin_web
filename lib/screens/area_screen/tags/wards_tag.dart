@@ -18,15 +18,14 @@ class WardsTag extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
             child: Text(
-              'Thông tin Phường Xã',
+              ScreenUtil.t(I18nKey.wards)!,
               style: AppTextTheme.headerTitle(AppColor.blue1),
             ),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: ApiField(
-              method: 'GET',
-              methodColor: Colors.greenAccent,
+              method: ApiMethod.get,
               link:
                   'https://private-anon-023b4f4949-ntexpress.apiary-mock.com/v1/loc/wards?district_id',
               request: [

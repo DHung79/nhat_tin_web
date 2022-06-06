@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../order_screen/order_screen.dart';
 import '/widgets/api_field.dart';
 import '/widgets/list_text.dart';
 import '../../config/data.dart';
@@ -68,7 +70,7 @@ class _WebhookScreenState extends State<WebhookScreen> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
                           child: Text(
-                            'Cập nhật vận đơn sang đối tác',
+                            ScreenUtil.t(I18nKey.updateOrderToPartner)!,
                             style:
                                 AppTextTheme.mediumHeaderTitle(AppColor.black),
                           ),
@@ -76,7 +78,7 @@ class _WebhookScreenState extends State<WebhookScreen> {
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           child: ApiField(
-                            method: 'POST',
+                            method: ApiMethod.post,
                             link:
                                 'https://private-anon-023b4f4949-ntexpress.apiary-mock.com/v1/webhook',
                             request: [
@@ -114,71 +116,49 @@ class _WebhookScreenState extends State<WebhookScreen> {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 8, 0, 16),
                                 child: Text(
-                                  'Ngay khi đơn hàng có cập nhật mới, hệ thống NTX sẽ tự động gửi cập nhật sang hệ thống của đối tác thông qua một URL(callback link) mà đối tác gửi cho kỹ thuật NTX. Tham khảo thêm bảng mã trạng thái đơn hàng.',
+                                  ScreenUtil.t(I18nKey.webhooksContent1)!,
                                   style:
                                       AppTextTheme.normalText(AppColor.black),
                                 ),
                               ),
                               Text(
-                                'Ví dụ, API callback của đối tác là: https://apidoitac.sampmle.com/update-shipping. Các tham số mà NTX truyền vào body sang đối tác. Tài liệu hướng dẫn đối tác tự thao tác chuyển đổi trạng thái vận đơn để tự động gọi về webhook:',
+                                ScreenUtil.t(I18nKey.webhooksContent2)!,
                                 style: AppTextTheme.normalText(AppColor.black),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 4),
-                                child: Text(
-                                  'https://webdev.ntx.com.vn/huong_dan_su_dung_uat.pdf',
-                                  style: AppTextTheme.link(AppColor.black),
+                                padding:
+                                    const EdgeInsets.only(top: 4, bottom: 16),
+                                child: GestureDetector(
+                                  child: Text(
+                                    'https://webdev.ntx.com.vn/huong_dan_su_dung_uat.pdf',
+                                    style: AppTextTheme.link(AppColor.blue1),
+                                  ),
+                                  onTap: () async {
+                                    const url =
+                                        'https://webdev.ntx.com.vn/huong_dan_su_dung_uat.pdf';
+                                    if (await canLaunchUrl(Uri.parse(url))) {
+                                      launchUrl(Uri.parse(url));
+                                    }
+                                  },
                                 ),
                               ),
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Wrap(
-                                  runSpacing: 6,
-                                  children: [
-                                    _buildTextRow(
-                                      title: 'bill_no',
-                                      subTitle:
-                                          '(string) - Mã vận đơn vận chuyển NTX',
-                                    ),
-                                    _buildTextRow(
-                                      title: 'ref_code',
-                                      subTitle:
-                                          '(string) - Mã đơn hàng đối tác',
-                                    ),
-                                    _buildTextRow(
-                                      title: 'status_id ',
-                                      subTitle:
-                                          '(int) - ID trạng thái. Được mô tả trong bộ mô tả trạng thái trong mục này',
-                                    ),
-                                    _buildTextRow(
-                                      title: 'status_name',
-                                      subTitle:
-                                          '(string) - Tên trạng thái. Được mô tả trong bộ mô tả trạng thái trong mục này',
-                                    ),
-                                    _buildTextRow(
-                                      title: 'status_time',
-                                      subTitle:
-                                          '(int) - Thời gian xảy ra bước trạng thái',
-                                    ),
-                                    _buildTextRow(
-                                      title: 'shipping_fee',
-                                      subTitle:
-                                          '(double) - Tổng cước và các loại phí vận chuyển',
-                                    ),
-                                    _buildTextRow(
-                                      title: 'list_issue',
-                                      subTitle:
-                                          '(array) - Nguyên nhân lý do sự cố lấy hàng - trả hàng',
-                                    ),
-                                  ],
+                                child: WebTable(
+                                  columnWidthRatio: parameterBoxHeader,
+                                  numberOfRows: webhooksTable.length,
+                                  rowBuilder: (index) => rowFor(
+                                    item: webhooksTable[index],
+                                  ),
                                 ),
                               ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8.0),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 child: BuildListText(
                                   titles: [
-                                    'Các thông số trong mảng trả về',
+                                    ScreenUtil.t(I18nKey.returnParameters)!,
                                     'do_code: Mã vận đơn',
                                     'report_type: Loại sự cố (1: Lấy hàng, 2: Trả hàng)',
                                     'report_type_name: Tên loại sự cố tương ứng',
@@ -199,18 +179,18 @@ class _WebhookScreenState extends State<WebhookScreen> {
                                   ],
                                 ),
                               ),
-                              const BuildListText(
+                              BuildListText(
                                 spacing: 8,
                                 titles: [
-                                  'Giả sử đơn hàng mã đơn hàng của khách là “DH098989898” (mã vận đơn là “E99999999”) được cập nhật “"giao thành công”.',
-                                  'Data NTX sẽ gửi tới callback link của đối tác theo nội dung request',
+                                  ScreenUtil.t(I18nKey.webhooksContent3)!,
+                                  ScreenUtil.t(I18nKey.webhooksContent4)!,
                                 ],
                               ),
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(0, 24, 0, 16),
                                 child: Text(
-                                  'Bộ trạng thái đơn hàng',
+                                  ScreenUtil.t(I18nKey.orderStatus)!,
                                   style: AppTextTheme.mediumBodyText(
                                       AppColor.black),
                                 ),
@@ -226,7 +206,7 @@ class _WebhookScreenState extends State<WebhookScreen> {
                                 padding:
                                     const EdgeInsets.fromLTRB(0, 24, 0, 16),
                                 child: Text(
-                                  'Danh sách dịch vụ',
+                                  ScreenUtil.t(I18nKey.listServices)!,
                                   style: AppTextTheme.mediumBodyText(
                                       AppColor.black),
                                 ),
@@ -242,7 +222,7 @@ class _WebhookScreenState extends State<WebhookScreen> {
                                 padding:
                                     const EdgeInsets.fromLTRB(0, 24, 0, 16),
                                 child: Text(
-                                  'Hình thức thanh toán',
+                                  ScreenUtil.t(I18nKey.paymentMethods)!,
                                   style: AppTextTheme.mediumBodyText(
                                       AppColor.black),
                                 ),
@@ -258,7 +238,7 @@ class _WebhookScreenState extends State<WebhookScreen> {
                                 padding:
                                     const EdgeInsets.fromLTRB(0, 24, 0, 16),
                                 child: Text(
-                                  'Danh sách nội dung hàng hóa',
+                                  ScreenUtil.t(I18nKey.commoditieType)!,
                                   style: AppTextTheme.mediumBodyText(
                                       AppColor.black),
                                 ),
@@ -304,29 +284,6 @@ class _WebhookScreenState extends State<WebhookScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildTextRow({
-    required String title,
-    required String subTitle,
-  }) {
-    return Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 4),
-          child: Text(
-            title,
-            style: AppTextTheme.normalText(AppColor.black).copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        Text(
-          subTitle,
-          style: AppTextTheme.normalText(AppColor.black),
-        ),
-      ],
     );
   }
 

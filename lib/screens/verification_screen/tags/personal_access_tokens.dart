@@ -18,7 +18,7 @@ class PersonalAccessTokens extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
               child: Text(
-                'Personal access tokens',
+                ScreenUtil.t(I18nKey.personalAccessTokens)!,
                 style: AppTextTheme.mediumHeaderTitle(AppColor.black),
               ),
             ),

@@ -21,24 +21,25 @@ class CreateOrderVer2 extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
             child: Text(
-              'Tạo vận đơn version 2',
+              ScreenUtil.t(I18nKey.createOrderVer2)!,
               style: AppTextTheme.headerTitle(AppColor.blue1),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 8, 32, 16),
             child: Text(
-              'Bằng cách gọi API sang NTX, truyền json param vào body theo thông số mô tả trong mục parameters. API này nếu KH lấy theo location của KH',
-              style: AppTextTheme.normalText(AppColor.black),
+              ScreenUtil.t(I18nKey.createOrderVer2Content)!,
+              style: AppTextTheme.normalHeaderTitle(AppColor.black),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ApiField(
-              method: 'POST',
+              method: ApiMethod.post,
               link:
                   'https://private-anon-023b4f4949-ntexpress.apiary-mock.com/v1/bill/create-by-location',
               parameterBox: WebTable(
+                apiMethod: ApiMethod.post,
                 columnWidthRatio: parameterBoxHeader,
                 numberOfRows: createOrderVer2Parameter.length,
                 rowBuilder: (index) => rowFor(

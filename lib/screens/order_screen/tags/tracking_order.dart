@@ -21,25 +21,25 @@ class TrackingOrder extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
             child: Text(
-              'Tracking Vận Đơn',
+              ScreenUtil.t(I18nKey.trackingOrder)!,
               style: AppTextTheme.headerTitle(AppColor.blue1),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 8, 32, 16),
             child: Text(
-              'API tracking vận đơn. Có thể tracking một hoặc nhiều vận đơn (tối đa 30 mã, mỗi mã cách nhau dẩu phẩy).',
-              style: AppTextTheme.normalText(AppColor.black),
+              ScreenUtil.t(I18nKey.trackingOrderContent)!,
+              style: AppTextTheme.normalHeaderTitle(AppColor.black),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ApiField(
-              method: 'GET',
-              methodColor: Colors.greenAccent,
+              method: ApiMethod.get,
               link:
                   'https://private-anon-023b4f4949-ntexpress.apiary-mock.com/v1/bill/tracking?bill_code',
               parameterBox: WebTable(
+                apiMethod: ApiMethod.get,
                 columnWidthRatio: parameterBoxHeader,
                 numberOfRows: 1,
                 rowBuilder: (index) => TableRow(

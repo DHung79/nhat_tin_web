@@ -21,17 +21,18 @@ class CancelOrder extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
             child: Text(
-              'Hủy vận đơn',
+              ScreenUtil.t(I18nKey.cancelOrder)!,
               style: AppTextTheme.headerTitle(AppColor.blue1),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ApiField(
-              method: 'POST',
+              method: ApiMethod.post,
               link:
                   'https://private-anon-023b4f4949-ntexpress.apiary-mock.com/v1/bill/destroy',
               parameterBox: WebTable(
+                apiMethod: ApiMethod.post,
                 columnWidthRatio: parameterBoxHeader,
                 numberOfRows: 1,
                 rowBuilder: (index) => TableRow(

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import '/theme/app_colors.dart';
 import '/theme/app_text_theme.dart';
-
 import 'list_text.dart';
+
+enum ApiMethod { get, post }
+
+final methodColor = [
+  AppColor.green,
+  AppColor.blue1,
+];
 
 class ApiField extends StatelessWidget {
   final String link;
@@ -10,8 +16,7 @@ class ApiField extends StatelessWidget {
   final String statusCode;
   final List<String> headers;
   final List<String> body;
-  final String method;
-  final Color? methodColor;
+  final ApiMethod method;
   final Widget? parameterBox;
 
   const ApiField({
@@ -23,7 +28,6 @@ class ApiField extends StatelessWidget {
     required this.body,
     this.parameterBox,
     required this.method,
-    this.methodColor,
   }) : super(key: key);
 
   @override
@@ -41,43 +45,56 @@ class ApiField extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColor.white,
-                      border: Border.all(color: methodColor ?? AppColor.blue1),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        method,
-                        style: AppTextTheme.normalText(
-                            methodColor ?? AppColor.blue1),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColor.black.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColor.white,
+                          border: Border.all(
+                            color: methodColor[method.index],
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            method.name.toUpperCase(),
+                            style: AppTextTheme.superscript(
+                              methodColor[method.index],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Text(
+                          link,
+                          style: AppTextTheme.link(AppColor.black),
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text(
-                      link,
-                      style: AppTextTheme.link(AppColor.black),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
             if (parameterBox != null)
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 24, 0, 16),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16),
                       child: Text(
                         'Parameters',
-                        style: AppTextTheme.normalHeaderTitle(AppColor.black),
+                        style: AppTextTheme.mediumHeaderTitle(AppColor.black),
                       ),
                     ),
                     parameterBox!,

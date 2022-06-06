@@ -615,3 +615,41 @@ final List<ItemModel> sendRequestParameter = [
     text3: 'String - optional',
   ),
 ];
+
+final webhooksTable = [
+  ItemModel(
+    text1: 'bill_no',
+    text2: 'Mã vận đơn vận chuyển NTX',
+    text3: 'string',
+  ),
+  ItemModel(
+    text1: 'ref_code',
+    text2: 'Mã đơn hàng đối tác',
+    text3: 'string',
+  ),
+  ItemModel(
+    text1: 'status_id',
+    text2: 'ID trạng thái. Được mô tả trong bộ mô tả trạng thái trong mục này',
+    text3: 'int',
+  ),
+  ItemModel(
+    text1: 'status_name',
+    text2: 'Tên trạng thái. Được mô tả trong bộ mô tả trạng thái trong mục này',
+    text3: 'string',
+  ),
+  ItemModel(
+    text1: 'status_time',
+    text2: 'Thời gian xảy ra bước trạng thái',
+    text3: 'int',
+  ),
+  ItemModel(
+    text1: 'shipping_fee',
+    text2: 'Tổng cước và các loại phí vận chuyển',
+    text3: 'double',
+  ),
+  ItemModel(
+    text1: 'list_issue',
+    text2: 'Nguyên nhân lý do sự cố lấy hàng - trả hàng',
+    text3: 'array',
+  ),
+];

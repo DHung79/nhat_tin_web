@@ -183,7 +183,8 @@ class _OrderScreenState extends State<OrderScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                        width: max(MediaQuery.of(context).size.width * 0.4, 750),
+                        width:
+                            max(MediaQuery.of(context).size.width * 0.4, 750),
                         child: _buildTag(index)),
                   ],
                 );
@@ -216,8 +217,8 @@ class _OrderScreenState extends State<OrderScreen> {
 
 List<TableHeader> parameterBoxHeader = [
   TableHeader(
-    title: 'keyName',
-    width: 120,
+    title: ScreenUtil.t(I18nKey.fieldName)!,
+    width: 150,
     isConstant: true,
   ),
   TableHeader(
@@ -225,8 +226,8 @@ List<TableHeader> parameterBoxHeader = [
     width: 300,
   ),
   TableHeader(
-    title: 'dataType',
-    width: 200,
+    title: ScreenUtil.t(I18nKey.dataType)!,
+    width: 150,
     isConstant: true,
   ),
 ];
@@ -236,8 +237,11 @@ TableRow rowFor({required ItemModel item}) {
     children: [
       tableCellText(title: item.text1),
       item.titles != null
-          ? BuildListText(
-              titles: item.titles!,
+          ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: BuildListText(
+                titles: item.titles!,
+              ),
             )
           : tableCellText(title: item.text2),
       tableCellText(title: item.text3),
