@@ -1,5 +1,3 @@
-import 'package:nhat_tin_web/screens/order_screen/tags/send_request.dart';
-
 class I18nKey {
   static const introduce = 'introduce';
   static const contact = 'contact';
