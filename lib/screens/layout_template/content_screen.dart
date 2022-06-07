@@ -46,6 +46,8 @@ class _PageTemplateState extends State<PageTemplate> {
   Widget _buildContent() {
     final color = AppColor.blue1;
     final isSearching = _searchController.text.isNotEmpty;
+    final screenSize = MediaQuery.of(context).size;
+    final isMini = screenSize.width < 500;
     return Container(
       color: AppColor.white,
       child: Stack(
@@ -112,17 +114,30 @@ class _PageTemplateState extends State<PageTemplate> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        SideBar(
-                          color: color,
-                          route: widget.route,
-                          tagNotifier: widget.tagNotifier!,
-                        ),
+                        if (!isMini)
+                          SideBar(
+                            color: color,
+                            route: widget.route,
+                            tagNotifier: widget.tagNotifier!,
+                          ),
                         Expanded(child: widget.child),
                       ],
                     ),
                   ),
             ],
           ),
+          if (isMini && widget.wellcome == null)
+            Padding(
+              padding: const EdgeInsets.only(top: 82),
+              child: SizedBox(
+                height: double.infinity,
+                child: SideBar(
+                  color: color,
+                  route: widget.route,
+                  tagNotifier: widget.tagNotifier!,
+                ),
+              ),
+            ),
           if (isSearching) _showSearchResult(),
         ],
       ),
