@@ -20,14 +20,14 @@ class CreateOrder extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
-            child: Text(
+            child: SelectableText(
               ScreenUtil.t(I18nKey.createOrder)!,
               style: AppTextTheme.headerTitle(AppColor.blue1),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 8, 32, 16),
-            child: Text(
+            child: SelectableText(
               ScreenUtil.t(I18nKey.createOrder)!,
               style: AppTextTheme.normalHeaderTitle(AppColor.black)
             ),

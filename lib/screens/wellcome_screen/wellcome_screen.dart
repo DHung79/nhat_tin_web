@@ -23,7 +23,7 @@ class WellComeScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 64),
-                  child: Text(
+                  child: SelectableText(
                     'Nhất Tín Express API Service',
                     style: AppTextTheme.bigText(AppColor.yellow1)
                         .copyWith(fontSize: 48),
@@ -31,7 +31,7 @@ class WellComeScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32),
-                  child: Text(
+                  child: SelectableText(
                     'NhatTin • ntexpress',
                     style: AppTextTheme.bigText(AppColor.yellow2),
                   ),

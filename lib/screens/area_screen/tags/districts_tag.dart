@@ -17,7 +17,7 @@ class DistrictsTag extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
-            child: Text(
+            child: SelectableText(
               ScreenUtil.t(I18nKey.districts)!,
               // 'Thông tin Quận Huyện',
               style: AppTextTheme.headerTitle(AppColor.blue1),

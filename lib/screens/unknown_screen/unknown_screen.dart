@@ -14,7 +14,7 @@ class UnknownScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Center(
-        child: Text(
+        child: SelectableText(
           'ERROR: 404\n\n\nPAGE NOT FOUND!',
           style: Theme.of(context).textTheme.headline6,
           textAlign: TextAlign.center,

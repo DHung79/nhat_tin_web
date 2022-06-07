@@ -16,13 +16,13 @@ class Version100 extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-            child: Text(
+            child: SelectableText(
               'B1 ver 1.0.0',
               style: AppTextTheme.mediumHeaderTitle(AppColor.black),
             ),
           ),
           Center(
-            child: Text(
+            child: SelectableText(
               ScreenUtil.t(I18nKey.noData)!,
               style: AppTextTheme.normalHeaderTitle(AppColor.black),
             ),

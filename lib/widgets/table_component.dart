@@ -15,7 +15,7 @@ DataCell rowCellData({
           : const EdgeInsets.symmetric(horizontal: 16),
       child: Align(
         alignment: alignment,
-        child: Text(
+        child: SelectableText(
           title!,
         ),
       ),
@@ -39,7 +39,7 @@ Widget tableCellText({
               : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Align(
             alignment: alignment,
-            child: Text(
+            child: SelectableText(
               title!,
               style: style,
             ),

@@ -154,44 +154,31 @@ class _OrderScreenState extends State<OrderScreen> {
     return PageTemplate(
       route: orderRoute,
       tagNotifier: widget.tagNotifier,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColor.yellow2,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColor.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 24,
-                  color: AppColor.blue1.withOpacity(0.2),
-                )
-              ],
-            ),
-            child: ScrollablePositionedList.builder(
-              key: _viewKey,
-              shrinkWrap: true,
-              itemScrollController: orderScrollController,
-              itemPositionsListener: orderPositionsListener,
-              physics: const ClampingScrollPhysics(),
-              itemCount: tags.length,
-              itemBuilder: (context, index) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        width:
-                            max(MediaQuery.of(context).size.width * 0.4, 750),
-                        child: _buildTag(index)),
-                  ],
-                );
-              },
-            ),
-          ),
-        ),
+      child: ScrollablePositionedList.builder(
+        key: _viewKey,
+        shrinkWrap: true,
+        itemScrollController: orderScrollController,
+        itemPositionsListener: orderPositionsListener,
+        physics: const ClampingScrollPhysics(),
+        itemCount: tags.length,
+        itemBuilder: (context, index) {
+          final screenSize = MediaQuery.of(context).size;
+          final isMedium = screenSize.width < 1200;
+          final isMini = screenSize.width < 950;
+
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                  width: isMini
+                      ? screenSize.width - 48
+                      : isMedium
+                          ? screenSize.width - 318
+                          : 750,
+                  child: _buildTag(index)),
+            ],
+          );
+        },
       ),
     );
   }

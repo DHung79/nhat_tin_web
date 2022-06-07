@@ -39,7 +39,7 @@ class ApiField extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            SelectableText(
               'Endpoint',
               style: AppTextTheme.mediumHeaderTitle(AppColor.black),
             ),
@@ -64,7 +64,7 @@ class ApiField extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
+                          child: SelectableText(
                             method.name.toUpperCase(),
                             style: AppTextTheme.superscript(
                               methodColor[method.index],
@@ -72,11 +72,13 @@ class ApiField extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Text(
-                          link,
-                          style: AppTextTheme.link(AppColor.black),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: SelectableText(
+                            link,
+                            style: AppTextTheme.link(AppColor.black),
+                          ),
                         ),
                       ),
                     ],
@@ -92,7 +94,7 @@ class ApiField extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16),
-                      child: Text(
+                      child: SelectableText(
                         'Parameters',
                         style: AppTextTheme.mediumHeaderTitle(AppColor.black),
                       ),
@@ -103,12 +105,12 @@ class ApiField extends StatelessWidget {
               ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 24, 0, 16),
-              child: Text(
+              child: SelectableText(
                 'Request',
                 style: AppTextTheme.mediumHeaderTitle(AppColor.black),
               ),
             ),
-            Text(
+            SelectableText(
               'Example',
               style: AppTextTheme.mediumBodyText(AppColor.black),
             ),
@@ -118,7 +120,7 @@ class ApiField extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
-              child: Text(
+              child: SelectableText(
                 'Response',
                 style: AppTextTheme.mediumHeaderTitle(AppColor.black),
               ),
@@ -164,12 +166,12 @@ class ApiField extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Text(
+          child: SelectableText(
             'StatusCode: $statusCode',
             style: AppTextTheme.mediumBodyText(AppColor.black),
           ),
         ),
-        Text(
+        SelectableText(
           'HEADERS',
           style: AppTextTheme.mediumBodyText(AppColor.black),
         ),
@@ -179,7 +181,7 @@ class ApiField extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 12),
-          child: Text(
+          child: SelectableText(
             'BODY',
             style: AppTextTheme.mediumBodyText(AppColor.black),
           ),

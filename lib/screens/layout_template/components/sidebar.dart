@@ -8,11 +8,14 @@ class SideBar extends StatefulWidget {
   final String route;
   final ValueNotifier<NavigatorType?> tagNotifier;
   final Color? color;
+  final Function() showMiniSiderBar;
+
   const SideBar({
     Key? key,
     required this.route,
     required this.tagNotifier,
     this.color,
+    required this.showMiniSiderBar,
   }) : super(key: key);
 
   @override
@@ -94,6 +97,7 @@ class SideBarState extends State<SideBar> {
             onPressed: () {
               setState(() {
                 navigateTo(item.route);
+                widget.showMiniSiderBar();
               });
             },
           );
@@ -183,6 +187,7 @@ class SideBarState extends State<SideBar> {
                         ),
                         onTap: () {
                           navigateTo(item.route + routeTags[tagIndex]);
+                          widget.showMiniSiderBar();
                         },
                       ),
                     );

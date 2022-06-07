@@ -20,7 +20,7 @@ class PrintOrder extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
-            child: Text(
+            child: SelectableText(
               ScreenUtil.t(I18nKey.printOrder)!,
               style: AppTextTheme.headerTitle(AppColor.blue1),
             ),

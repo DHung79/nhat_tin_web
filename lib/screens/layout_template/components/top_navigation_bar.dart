@@ -6,10 +6,12 @@ import '../../../theme/app_theme.dart';
 class TopNavigationBar extends StatefulWidget {
   final Widget searchField;
   final Color? color;
+  final Function() showMiniSiderBar;
   const TopNavigationBar({
     Key? key,
     this.color,
     required this.searchField,
+    required this.showMiniSiderBar,
   }) : super(key: key);
 
   @override
@@ -17,8 +19,13 @@ class TopNavigationBar extends StatefulWidget {
 }
 
 class _TopNavigationBarState extends State<TopNavigationBar> {
+  bool showButton = false;
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isMedium = screenSize.width < 950;
+    final isMini = screenSize.width < 700;
+
     return Container(
       decoration: BoxDecoration(
         color: widget.color,
@@ -31,8 +38,21 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
       ),
       height: 82,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          if (isMedium)
+            AppButtonTheme.fillRounded(
+              color: AppColor.transparent,
+              constraints: const BoxConstraints(minHeight: 44, maxWidth: 50),
+              child: Icon(
+                Icons.format_list_bulleted_rounded,
+                color: AppColor.white,
+                size: 24,
+              ),
+              onPressed: () {
+                widget.showMiniSiderBar();
+              },
+            ),
           AppButtonTheme.fillRounded(
             color: AppColor.transparent,
             constraints: const BoxConstraints(minHeight: 44),
@@ -41,13 +61,16 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
               navigateTo(initialRoute);
             },
           ),
-          _actions(),
+          if (!isMini)
+            Expanded(
+              child: _actions(),
+            ),
         ],
       ),
     );
   }
 
-  _appbarTitle() {
+  Widget _appbarTitle() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Column(
@@ -69,34 +92,42 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
     );
   }
 
-  _actions() {
+  Widget _actions() {
+    final screenSize = MediaQuery.of(context).size;
+    final isMini = screenSize.width < 950;
+
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        widget.searchField,
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: AppButtonTheme.fillRounded(
-            color: AppColor.white,
-            constraints: const BoxConstraints(minHeight: 44, minWidth: 130),
-            borderRadius: BorderRadius.circular(4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    ScreenUtil.t(I18nKey.guide)!,
-                    style: AppTextTheme.mediumBodyText(AppColor.black),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              navigateTo(introducationRoute);
-            },
-          ),
+          padding: const EdgeInsets.only(right: 16),
+          child: widget.searchField,
         ),
-        _adminInfo(),
+        if (!isMini)
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: AppButtonTheme.fillRounded(
+              color: AppColor.white,
+              constraints: const BoxConstraints(minHeight: 44, minWidth: 130),
+              borderRadius: BorderRadius.circular(4),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      ScreenUtil.t(I18nKey.guide)!,
+                      style: AppTextTheme.mediumBodyText(AppColor.black),
+                    ),
+                  ),
+                ],
+              ),
+              onPressed: () {
+                navigateTo(introducationRoute);
+              },
+            ),
+          ),
+        if (!isMini) _adminInfo(),
       ],
     );
   }
@@ -152,8 +183,8 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
       ),
       itemBuilder: (context) {
         return adminMenuItems.map((LanguageItem item) {
-          final selectedLang = context.locale.languageCode ==
-              item.supportedLocale.languageCode;
+          final selectedLang =
+              context.locale.languageCode == item.supportedLocale.languageCode;
           return PopupMenuItem<LanguageItem>(
             value: item,
             child: Padding(

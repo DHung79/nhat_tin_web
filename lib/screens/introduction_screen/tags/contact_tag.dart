@@ -16,7 +16,7 @@ class ContactTag extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 32),
-            child: Text(
+            child: SelectableText(
               'Nhất Tín Express API Service',
               style:
                   AppTextTheme.bigText(AppColor.black).copyWith(fontSize: 48),
@@ -25,18 +25,18 @@ class ContactTag extends StatelessWidget {
           const Divider(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(
+            child: SelectableText(
               ScreenUtil.t(I18nKey.introduce)!,
               style: AppTextTheme.headerTitle(AppColor.black),
             ),
           ),
-          Text(
+          SelectableText(
             ScreenUtil.t(I18nKey.introWeb)!,
             style: AppTextTheme.normalHeaderTitle(AppColor.black),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(
+            child: SelectableText(
               'A. ${ScreenUtil.t(I18nKey.connectorInformation)!.toUpperCase()}',
               style: AppTextTheme.mediumHeaderTitle(AppColor.black),
             ),
@@ -46,22 +46,22 @@ class ContactTag extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                SelectableText(
                   '1. ${ScreenUtil.t(I18nKey.host)!}',
                   style: AppTextTheme.mediumBodyText(AppColor.black),
                 ),
                 _boxContent(ScreenUtil.t(I18nKey.hostContent)!),
-                Text(
+                SelectableText(
                   '2. ${ScreenUtil.t(I18nKey.authorization)!}',
                   style: AppTextTheme.mediumBodyText(AppColor.black),
                 ),
                 _boxContent(ScreenUtil.t(I18nKey.authorizationContent)!),
-                Text(
+                SelectableText(
                   '1. ${ScreenUtil.t(I18nKey.webPortal)!}',
                   style: AppTextTheme.mediumBodyText(AppColor.black),
                 ),
                 _boxContent(ScreenUtil.t(I18nKey.webPortalContentBox)!),
-                Text(
+                SelectableText(
                   ScreenUtil.t(I18nKey.webPortalContent)!,
                   style: AppTextTheme.normalHeaderTitle(AppColor.black),
                 ),
@@ -83,7 +83,7 @@ class ContactTag extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
+          child: SelectableText(
             title,
             style: AppTextTheme.normalText(AppColor.black),
           ),

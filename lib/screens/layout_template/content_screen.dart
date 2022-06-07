@@ -29,6 +29,7 @@ class _PageTemplateState extends State<PageTemplate> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final _searchController = TextEditingController();
   late List<SearchItem> results = [];
+  bool showSideBar = false;
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -47,7 +48,9 @@ class _PageTemplateState extends State<PageTemplate> {
     final color = AppColor.blue1;
     final isSearching = _searchController.text.isNotEmpty;
     final screenSize = MediaQuery.of(context).size;
-    final isMini = screenSize.width < 500;
+    final isMedium = screenSize.width < 950;
+    final isMini = screenSize.width < 650;
+
     return Container(
       color: AppColor.white,
       child: Stack(
@@ -108,25 +111,60 @@ class _PageTemplateState extends State<PageTemplate> {
                     },
                   ),
                 ),
+                showMiniSiderBar: () {
+                  setState(() {
+                    showSideBar = !showSideBar;
+                  });
+                },
               ),
               widget.wellcome ??
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (!isMini)
+                        if (!isMedium)
                           SideBar(
                             color: color,
                             route: widget.route,
                             tagNotifier: widget.tagNotifier!,
+                            showMiniSiderBar: () {
+                              setState(() {
+                                showSideBar = false;
+                              });
+                            },
                           ),
-                        Expanded(child: widget.child),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColor.yellow2,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: isMini ? 0 : 24,
+                                horizontal: isMini ? 0 : 24,
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: AppColor.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 24,
+                                      color: AppColor.blue1.withOpacity(0.2),
+                                    )
+                                  ],
+                                ),
+                                child: widget.child,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
             ],
           ),
-          if (isMini && widget.wellcome == null)
+          if (isMedium && widget.wellcome == null && showSideBar)
             Padding(
               padding: const EdgeInsets.only(top: 82),
               child: SizedBox(
@@ -135,10 +173,20 @@ class _PageTemplateState extends State<PageTemplate> {
                   color: color,
                   route: widget.route,
                   tagNotifier: widget.tagNotifier!,
+                  showMiniSiderBar: () {
+                    setState(() {
+                      showSideBar = false;
+                    });
+                  },
                 ),
               ),
             ),
-          if (isSearching) _showSearchResult(),
+          if (isSearching)
+            Positioned(
+              right: isMedium ? 16 : 294,
+              top: 65,
+              child: _showSearchResult(),
+            ),
         ],
       ),
     );
@@ -275,45 +323,44 @@ class _PageTemplateState extends State<PageTemplate> {
         }
       }
     }
-    return Positioned(
-      right: 294,
-      top: 65,
-      child: Container(
-        width: 300,
-        decoration: BoxDecoration(
-          color: AppColor.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: AppColor.blue1),
-        ),
-        child: ListView.builder(
-          itemCount: min(results.length, 5),
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          itemBuilder: (content, index) {
-            final result = results[index];
-            return AppButtonTheme.fillRounded(
-              color: AppColor.transparent,
-              constraints: const BoxConstraints(minHeight: 50),
-              borderRadius: BorderRadius.circular(4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Text(
-                      result.displayName,
-                      style: AppTextTheme.normalText(AppColor.black),
-                    ),
+    return Container(
+      width: 300,
+      decoration: BoxDecoration(
+        color: AppColor.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColor.blue1),
+      ),
+      child: ListView.builder(
+        itemCount: min(results.length, 5),
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        itemBuilder: (content, index) {
+          final result = results[index];
+          return AppButtonTheme.fillRounded(
+            color: AppColor.transparent,
+            constraints: const BoxConstraints(minHeight: 50),
+            borderRadius: BorderRadius.circular(4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text(
+                    result.displayName,
+                    style: AppTextTheme.normalText(AppColor.black),
                   ),
-                ],
-              ),
-              onPressed: () {
-                navigateTo(result.route);
-                _searchController.clear();
-              },
-            );
-          },
-        ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              navigateTo(result.route);
+              _searchController.clear();
+              setState(() {
+                showSideBar = false;
+              });
+            },
+          );
+        },
       ),
     );
   }

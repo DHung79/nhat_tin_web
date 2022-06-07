@@ -20,7 +20,7 @@ class BuildListText extends StatelessWidget {
         for (var text in titles)
           Padding(
             padding: EdgeInsets.symmetric(vertical: spacing),
-            child: Text(
+            child: SelectableText(
               text,
               style: AppTextTheme.normalText(color ?? AppColor.black),
             ),

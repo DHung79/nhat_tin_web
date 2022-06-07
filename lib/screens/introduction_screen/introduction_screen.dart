@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import '../../theme/app_theme.dart';
 import '/routers/route_names.dart';
 import '../../main.dart';
 import '../../routers/navigator_type.dart';
@@ -22,7 +21,7 @@ class IntroductionScreen extends StatefulWidget {
 
 class _IntroductionScreenState extends State<IntroductionScreen> {
   final introducationPositionsListener = ItemPositionsListener.create();
-      final tags = getTagsOfRoute(introducationRoute);
+  final tags = getTagsOfRoute(introducationRoute);
   double offset = 0;
   final _tag1Key = GlobalKey();
   final _tag2Key = GlobalKey();
@@ -126,43 +125,32 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
     return PageTemplate(
       route: introducationRoute,
       tagNotifier: widget.tagNotifier,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColor.yellow2,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColor.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 24,
-                  color: AppColor.blue1.withOpacity(0.2),
-                )
-              ],
-            ),
-            child: ScrollablePositionedList.builder(
-              key: _viewKey,
-              shrinkWrap: true,
-              itemScrollController: introducationScrollController,
-              itemPositionsListener: introducationPositionsListener,
-              physics: const ClampingScrollPhysics(),
-              itemCount: tags.length,
-              itemBuilder: (context, index) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        width: max(MediaQuery.of(context).size.width * 0.4, 750),
-                        child: _buildTag(index)),
-                  ],
-                );
-              },
-            ),
-          ),
-        ),
+      child: ScrollablePositionedList.builder(
+        key: _viewKey,
+        shrinkWrap: true,
+        itemScrollController: introducationScrollController,
+        itemPositionsListener: introducationPositionsListener,
+        physics: const ClampingScrollPhysics(),
+        itemCount: tags.length,
+        itemBuilder: (context, index) {
+          final screenSize = MediaQuery.of(context).size;
+          final isMedium = screenSize.width < 1200;
+          final isMini = screenSize.width < 950;
+
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: isMini
+                    ? screenSize.width - 48
+                    : isMedium
+                        ? screenSize.width - 318
+                        : 750,
+                child: _buildTag(index),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

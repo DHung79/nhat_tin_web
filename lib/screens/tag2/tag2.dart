@@ -90,7 +90,7 @@ class Tag2 extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Center(
-                    child: Text(
+                    child: SelectableText(
                       title,
                       style: TextStyle(
                         fontSize: 30,

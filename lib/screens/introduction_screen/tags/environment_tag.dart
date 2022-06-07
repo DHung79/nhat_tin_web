@@ -16,12 +16,12 @@ class EnvironmentTag extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 32),
-            child: Text(
+            child: SelectableText(
               ScreenUtil.t(I18nKey.environment)!,
               style: AppTextTheme.headerTitle(AppColor.black),
             ),
           ),
-          Text(
+          SelectableText(
             ScreenUtil.t(I18nKey.noData)!,
             style: AppTextTheme.normalHeaderTitle(AppColor.black),
           ),

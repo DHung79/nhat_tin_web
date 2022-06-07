@@ -86,7 +86,7 @@ class _DynamicTableState extends State<DynamicTable> {
                             child: Padding(
                               padding: widget.contentPadding,
                               child: Center(
-                                child: Text(ScreenUtil.t(I18nKey.noData)!),
+                                child: SelectableText(ScreenUtil.t(I18nKey.noData)!),
                               ),
                             ),
                           ),
@@ -218,7 +218,7 @@ class _DynamicTableState extends State<DynamicTable> {
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
+                          child: SelectableText(
                             title,
                             style: widget.headerStyle ??
                                 Theme.of(context).textTheme.bodyText2,

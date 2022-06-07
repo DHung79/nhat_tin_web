@@ -17,13 +17,13 @@ class PersonalAccessTokens extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-              child: Text(
+              child: SelectableText(
                 ScreenUtil.t(I18nKey.personalAccessTokens)!,
                 style: AppTextTheme.mediumHeaderTitle(AppColor.black),
               ),
             ),
             Center(
-              child: Text(
+              child: SelectableText(
                 ScreenUtil.t(I18nKey.noData)!,
                 style: AppTextTheme.normalHeaderTitle(AppColor.black),
               ),
